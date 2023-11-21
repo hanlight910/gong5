@@ -1,7 +1,7 @@
 const { DataTypes }  = require('sequelize');
 const db = require('../config/database');
 
-const User = db.define('Product', {
+const User = db.define('User', {
     id : {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -40,13 +40,17 @@ const User = db.define('Product', {
         allowNull: true,
     },
     updatetime: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: true,
     },
     profileImage: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: true,
     },
 });
-
+// {
+//     tableName: 'users',
+//     timestamps:true
+// }
 module.exports = Product;
+
