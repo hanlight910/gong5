@@ -6,8 +6,10 @@ const bodyParser = require('body-parser')
 const app = express();
 const port = process.env.PORT || 3000
 const db = require('./config/database');
+const commentRouter = require('./router/comment.js');
 
 app.use(bodyParser.json());
+app.use('/', commentRouter);
 
 // app.use('/auth', authRouter);
 // app.use('/', productRouter);
