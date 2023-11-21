@@ -31,7 +31,7 @@ const User = db.define('User', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    createdtime: {
+    createtime: {
         type: DataTypes.STRING,
         allowNull: true,
     },
@@ -52,5 +52,5 @@ const User = db.define('User', {
 //     tableName: 'users',
 //     timestamps:true
 // }
-module.exports = Product;
+module.exports = User;
 
