@@ -1,29 +1,21 @@
 const { DataTypes }  = require('sequelize');
 const db = require('../config/database');
-const User = require('./userModel');
 const Product = require('./productModels');
+const Comment = require('./commentModel');
 
-const Comment = db.define('Comment', {
+const CommentGood = db.define('CommentGood', {
     id : {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement : true
     },
-    user_id: {
+    comment_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
     product_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    content : {
-        type: DataTypes.STRING,
-        allowNull: true,
     },
     createtime: {
         type: DataTypes.DATE,
@@ -39,10 +31,10 @@ const Comment = db.define('Comment', {
 //     timestamps:true
 // }
 
-Comment.belongsTo(User, { foreignKey: 'user_id' });
+CommentGood.belongsTo(Comment, { foreignKey: 'comment_id' });
 
-Comment.belongsTo(Product, { foreignKey: 'product_id'});
+CommentGood.belongsTo(Product, { foreignKey: 'product_id'});
 
-module.exports = Comment;
+module.exports = CommentGood;
 
 s
