@@ -1,13 +1,14 @@
 const { DataTypes }  = require('sequelize');
 const db = require('../config/database');
 const User = require('./userModel');
-const Product = require('./productModels');
+const Product = require('./productModel');
 
 const Comment = db.define('Comment', {
     id : {
         type: DataTypes.INTEGER,
         allowNull: false,
-        autoIncrement : true
+        autoIncrement : true,
+        primaryKey: true,
     },
     user_id: {
         type: DataTypes.INTEGER,
@@ -44,5 +45,3 @@ Comment.belongsTo(User, { foreignKey: 'user_id' });
 Comment.belongsTo(Product, { foreignKey: 'product_id'});
 
 module.exports = Comment;
-
-s
