@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/productModel');
+const Product = require('../models/productInfo');
 const authenticateToken = require('../middleware/authMiddleware');
 
 //생성
@@ -121,10 +121,10 @@ router.get('/products', async (req, res) => {
 				: [['createdAt', 'DESC']];
 
 		const products = await Product.findAll({
-			attributes: ['id', 'title', 'price', 'content', 'status', 'createtime', 'updatetime', 'image', 'delivery', 'good', 'watched'],
+			attributes: ['id', 'title', 'price', 'content', 'status', 'image', 'delivery', 'good', 'watched', 'createdAt', 'updatedAt',],
 			order,
 			include: {
-				model: Auth,
+				model: userInfo,
 				attributes: ['username'],
 			},
 		});
@@ -145,7 +145,7 @@ router.get('/product/:productId', async (req, res) => {
 			where: { id: productId },
 			include: [
 				{
-					model: Auth,
+					model: userInfo,
 					attributes: ['id', 'username'],
 				},
 			],
@@ -158,12 +158,18 @@ router.get('/product/:productId', async (req, res) => {
 		const productInfo = {
 			id: product.id,
 			title: product.title,
+			price: product.price,
 			content: product.content,
-			username: product.Auth.username,
 			status: product.status,
+			image: product.image,
+			delivery: product.delivery,
+			username: product.userInfo.username,
+			good: product.good,
+			watched: product.watched,
 			createdAt: product.createdAt,
+			updatedAt: product.updatedAt,
 		};
-
+		
 		res.json({ product: productInfo });
 	} catch (error) {
 		console.error(error);
