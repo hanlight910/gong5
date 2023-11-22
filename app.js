@@ -7,7 +7,13 @@ const app = express();
 const port = process.env.PORT || 3000
 const db = require('./config/database');
 
+// comment router 가져옴
+const commentRouter = require('./router/comment');
+
 app.use(bodyParser.json());
+
+// comment API 사용
+app.use('/api', commentRouter);
 
 // app.use('/auth', authRouter);
 // app.use('/', productRouter);
