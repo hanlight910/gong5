@@ -1,33 +1,30 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const UserInfo = require('./userInfo');
+const ProductInfo = require('./productInfo');
 
-const Message = db.define('message', {
+const ProductLike = db.define('product_like', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
     },
-    send_user: {
+    product_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: ProductInfo,
+            key: 'id',
+        },
+    },
+    user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: UserInfo,
             key: 'id',
         },
-    },
-    get_user: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: UserInfo,
-            key: 'id',
-        },
-    },
-    test_message: {
-        type: DataTypes.TEXT,
-        allowNull: false,
     },
     createdAt: {
         type: DataTypes.DATE,
@@ -40,11 +37,11 @@ const Message = db.define('message', {
         defaultValue: DataTypes.NOW,
     },
 }, {
-    tableName: 'message',
+    tableName: 'product_like',
     timestamps: false,
 });
 
-Message.belongsTo(UserInfo, { foreignKey: 'send_user', as: 'sender' });
-Message.belongsTo(UserInfo, { foreignKey: 'get_user', as: 'receiver' });
+ProductLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
+ProductLike.belongsTo(ProductInfo, { foreignKey: 'product_id' });
 
-module.exports = Message;
+module.exports = ProductLike;
