@@ -1,0 +1,24 @@
+@host = http://localhost:3000/auth
+
+### 회원가입
+POST {{host}}/signup
+Content-Type: application/json
+
+{
+   "email": "example2@example.com",
+   "password": "eXampLeP@ss",
+   "name": "관리자"
+   "birthday":"1999-09-09",
+   "address":"19990909",
+   "phoneNumber":"01044445555",
+   "profileImage":"httpsdajkjldi",
+}
+
+### 로그인
+POST {{host}}/login
+Content-Type: application/json
+
+{
+   "email": "example2@example.com",
+   "password": "eXampLeP@ss"
+}
