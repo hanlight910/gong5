@@ -3,6 +3,7 @@ const router = express.Router();
 const Product = require('../models/productInfo');
 const authenticateToken = require('../middleware/authMiddleware');
 
+
 //생성
 router.post('/products', authenticateToken, async (req, res) => {
 	try {
@@ -51,7 +52,7 @@ router.post('/products', authenticateToken, async (req, res) => {
 });
 
 //수정
-router.put('/product/:productId', authenticateToken, async (req, res) => {
+router.put('/products/:productId', authenticateToken, async (req, res) => {
 	try {
 		const { title, content, price, status } = req.body;
 		const { productId } = req.params;
@@ -84,7 +85,7 @@ router.put('/product/:productId', authenticateToken, async (req, res) => {
 });
 
 //삭제
-router.delete('/product/:productId', authenticateToken, async (req, res) => {
+router.delete('/products/:productId', authenticateToken, async (req, res) => {
 	try {
 		const { productId } = req.params;
 		const userId = req.locals.user.userId;
@@ -137,7 +138,7 @@ router.get('/products', async (req, res) => {
 });
 
 //상세 조회
-router.get('/product/:productId', async (req, res) => {
+router.get('/products/:productId', async (req, res) => {
 	try {
 		const productId = req.params.productId;
 
