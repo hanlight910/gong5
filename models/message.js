@@ -32,4 +32,3 @@ Message.belongsTo(User, { foreignKey: 'user_id' });
 
 module.exports = Message;
 
-s

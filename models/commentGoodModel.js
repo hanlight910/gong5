@@ -33,8 +33,7 @@ const CommentGood = db.define('CommentGood', {
 
 CommentGood.belongsTo(Comment, { foreignKey: 'comment_id' });
 
-CommentGood.belongstTo(Product, { foreignKey: 'porduct_id'});
+CommentGood.belongstTo(Product, { foreignKey: 'product_id'});
 
 module.exports = Product;
 
-s

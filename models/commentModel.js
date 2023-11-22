@@ -41,7 +41,7 @@ const Comment = db.define('Comment', {
 
 Comment.belongsTo(User, { foreignKey: 'user_id' });
 
-Comment.belongstTo(Product, { foreignKey: 'porduct_id'});
+Comment.belongsTo(Product, { foreignKey: 'product_id'});
 
 module.exports = Product;
 

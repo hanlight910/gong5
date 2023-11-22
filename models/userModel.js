@@ -52,5 +52,5 @@ const User = db.define('User', {
 //     tableName: 'users',
 //     timestamps:true
 // }
-module.exports = Product;
+module.exports = User;
 
