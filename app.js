@@ -4,12 +4,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const UserInfo = require('./models/userInfo');
 const db = require('./config/database');
+const commentInfoRouter = require('./router/comment');
 
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+
+app.use('/api', commentInfoRouter);
 
 app.get('/users', async (req, res) => {
 	try {
