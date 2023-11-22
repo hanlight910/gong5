@@ -2,8 +2,8 @@
   "development": {
     "username": "master",
     "password": "master1234",
-    "database": "database_development",
-    "host": "127.0.0.1",
+    "database": "one_light",
+    "host": "gong5.cnhf1zauwkkx.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "test": {
