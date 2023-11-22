@@ -2,10 +2,9 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const UserInfo = require('./models/userInfo');
 const db = require('./config/database');
 const commentInfoRouter = require('./router/comment');
-
+const userRouter = require('./router/userRouter')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,17 +12,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 app.use('/api', commentInfoRouter);
-
-app.get('/users', async (req, res) => {
-	try {
-		// Sequelize 모델을 통해 데이터 가져오기
-		const users = await UserInfo.findAll();
-		res.json(users);
-	} catch (error) {
-		console.error('Error fetching data from userInfo table:', error);
-		res.status(500).json({ error: 'Internal Server Error' });
-	}
-});
+app.use('/auth', userRouter);
 
 app.listen(port, async () => {
 	try {
@@ -32,4 +21,13 @@ app.listen(port, async () => {
 		console.error('DB 연결 또는 초기화 중에 오류가 발생했습니다.', error);
 	}
 });
+async function testDBConnection() {
+	try {
+		await db.authenticate();
+		console.log('Sequelize로 DB 연결에 성공했습니다.');
+	} catch (error) {
+		console.error('DB 연결에 실패했습니다.', error);
+	}
+}
 
+testDBConnection();
