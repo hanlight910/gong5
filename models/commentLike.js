@@ -1,17 +1,18 @@
-// message.js
+// commentLike.js
 
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
+const CommentInfo = require('./commentInfo'); // Importing the CommentInfo model for the foreign key relationship
 const UserInfo = require('./userInfo'); // Importing the UserInfo model for the foreign key relationship
 
-const Message = db.define('message', {
+const CommentLike = db.define('comment_like', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
     },
-    send_user: {
+    user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -19,17 +20,13 @@ const Message = db.define('message', {
             key: 'id',
         },
     },
-    get_user: {
+    comment_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: UserInfo,
+            model: CommentInfo,
             key: 'id',
         },
-    },
-    test_message: {
-        type: DataTypes.TEXT,
-        allowNull: false,
     },
     createdAt: {
         type: DataTypes.DATE,
@@ -42,12 +39,12 @@ const Message = db.define('message', {
         defaultValue: DataTypes.NOW,
     },
 }, {
-    tableName: 'message',
+    tableName: 'comment_like',
     timestamps: false, // If you don't want Sequelize to manage timestamps
 });
 
 // Define the foreign key relationships
-Message.belongsTo(UserInfo, { foreignKey: 'send_user', as: 'sender' });
-Message.belongsTo(UserInfo, { foreignKey: 'get_user', as: 'receiver' });
+CommentLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
+CommentLike.belongsTo(CommentInfo, { foreignKey: 'comment_id' });
 
-module.exports = Message;
+module.exports = CommentLike;
