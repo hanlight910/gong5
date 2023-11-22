@@ -1,7 +1,7 @@
 const { DataTypes }  = require('sequelize');
 const db = require('../config/database');
 const Auth = require("./userModel");
-const User = db.define('Product', {
+const Product = db.define('Product', {
     id : {
         type: DataTypes.INTEGER,
         allowNull: false,
