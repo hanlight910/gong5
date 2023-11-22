@@ -102,7 +102,7 @@ router.get('/products', async (req, res) => {
 			order,
 			include: {
 				model: userInfo,
-				attributes: ['username'],
+				attributes: ['name'],
 			},
 		});
 
@@ -123,7 +123,7 @@ router.get('/products/:productId', async (req, res) => {
 			include: [
 				{
 					model: userInfo,
-					attributes: ['id', 'username'],
+					attributes: ['id', 'name'],
 				},
 			],
 		});
@@ -131,7 +131,7 @@ router.get('/products/:productId', async (req, res) => {
 		if (!product) {
 			return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
 		}
-
+		console.log(product)
 		const productInfo = {
 			id: product.id,
 			title: product.title,
@@ -140,7 +140,7 @@ router.get('/products/:productId', async (req, res) => {
 			status: product.status,
 			image: product.image,
 			delivery: product.delivery,
-			username: product.userInfo.username,
+			username: product.user_Info.user_Info.name,
 			good: product.good,
 			watched: product.watched,
 			createdAt: product.createdAt,
