@@ -1,34 +1,26 @@
-// message.js
+// tag.js
 
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const UserInfo = require('./userInfo'); // Importing the UserInfo model for the foreign key relationship
+const ProductInfo = require('./productInfo'); // Importing the ProductInfo model for the foreign key relationship
 
-const Message = db.define('message', {
+const Tag = db.define('tag', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
     },
-    send_user: {
+    product_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: UserInfo,
+            model: ProductInfo,
             key: 'id',
         },
     },
-    get_user: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: UserInfo,
-            key: 'id',
-        },
-    },
-    test_message: {
-        type: DataTypes.TEXT,
+    tag_text: {
+        type: DataTypes.STRING,
         allowNull: false,
     },
     createdAt: {
@@ -42,12 +34,11 @@ const Message = db.define('message', {
         defaultValue: DataTypes.NOW,
     },
 }, {
-    tableName: 'message',
+    tableName: 'tag',
     timestamps: false, // If you don't want Sequelize to manage timestamps
 });
 
-// Define the foreign key relationships
-Message.belongsTo(UserInfo, { foreignKey: 'send_user', as: 'sender' });
-Message.belongsTo(UserInfo, { foreignKey: 'get_user', as: 'receiver' });
+// Define the foreign key relationship
+Tag.belongsTo(ProductInfo, { foreignKey: 'product_id' });
 
-module.exports = Message;
+module.exports = Tag;
