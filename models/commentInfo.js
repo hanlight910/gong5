@@ -50,7 +50,6 @@ const CommentInfo = db.define('comment_info', {
     timestamps: false,
 });
 
-CommentInfo.belongsTo(ProductInfo, { foreignKey: 'product_id' });
 CommentInfo.belongsTo(UserInfo, { foreignKey: 'user_id' });
 
 module.exports = CommentInfo;
