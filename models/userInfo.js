@@ -1,12 +1,12 @@
-const { DataTypes }  = require('sequelize');
+const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 
-const User = db.define('User', {
-    id : {
+const UserInfo = db.define('user_info', {
+    id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        autoIncrement : true,
-        primaryKey: true
+        autoIncrement: true,
+        primaryKey: true,
     },
     email: {
         type: DataTypes.STRING,
@@ -20,7 +20,7 @@ const User = db.define('User', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    birthday : {
+    birthday: {
         type: DataTypes.STRING,
         allowNull: true,
     },
@@ -32,26 +32,23 @@ const User = db.define('User', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    createtime: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    address: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    updatetime: {
-        type: DataTypes.DATE,
-        allowNull: true,
-    },
     profileImage: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: true,
     },
+    createdAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+    },
+}, {
+    tableName: 'user_info',
+    timestamps: false,
 });
-// {
-//     tableName: 'users',
-//     timestamps:true
-// }
-module.exports = User;
 
+module.exports = UserInfo;

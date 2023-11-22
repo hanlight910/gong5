@@ -2,14 +2,14 @@ const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const UserInfo = require('./userInfo');
 
-const Message = db.define('message', {
+const ProductInfo = db.define('product_info', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
     },
-    send_user: {
+    user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -17,17 +17,37 @@ const Message = db.define('message', {
             key: 'id',
         },
     },
-    get_user: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: UserInfo,
-            key: 'id',
-        },
+    title: {
+        type: DataTypes.STRING,
+        allowNull: true,
     },
-    test_message: {
+    price: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    content: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    delivery: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+    },
+    good: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    watched: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
     },
     createdAt: {
         type: DataTypes.DATE,
@@ -40,11 +60,10 @@ const Message = db.define('message', {
         defaultValue: DataTypes.NOW,
     },
 }, {
-    tableName: 'message',
+    tableName: 'product_info',
     timestamps: false,
 });
 
-Message.belongsTo(UserInfo, { foreignKey: 'send_user', as: 'sender' });
-Message.belongsTo(UserInfo, { foreignKey: 'get_user', as: 'receiver' });
+ProductInfo.belongsTo(UserInfo, { foreignKey: 'user_id' });
 
-module.exports = Message;
+module.exports = ProductInfo;
