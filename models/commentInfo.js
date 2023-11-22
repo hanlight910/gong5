@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const ProductInfo = require('./productInfo');
 const UserInfo = require('./userInfo');
+const CommentLike = require('./commentLike'); // 수정: commentLike로 변경
 
 const CommentInfo = db.define('comment_info', {
     id: {
@@ -23,7 +24,7 @@ const CommentInfo = db.define('comment_info', {
         allowNull: false,
         references: {
             model: UserInfo,
-            key: 'id',
+            key: 'id', // 수정: 'user_info'가 아닌 UserInfo로 변경
         },
     },
     comment: {
@@ -50,6 +51,7 @@ const CommentInfo = db.define('comment_info', {
     timestamps: false,
 });
 
-CommentInfo.belongsTo(UserInfo, { foreignKey: 'user_id' });
+CommentInfo.belongsTo(UserInfo, { foreignKey: 'user_id', targetKey: 'id' });
+CommentInfo.hasMany(CommentLike, { foreignKey: 'comment_id' });
 
 module.exports = CommentInfo;
