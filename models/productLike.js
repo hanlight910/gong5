@@ -1,9 +1,7 @@
-// productLike.js
-
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const UserInfo = require('./userInfo'); // Importing the UserInfo model for the foreign key relationship
-const ProductInfo = require('./productInfo'); // Importing the ProductInfo model for the foreign key relationship
+const UserInfo = require('./userInfo');
+const ProductInfo = require('./productInfo');
 
 const ProductLike = db.define('product_like', {
     id: {
@@ -40,10 +38,9 @@ const ProductLike = db.define('product_like', {
     },
 }, {
     tableName: 'product_like',
-    timestamps: false, // If you don't want Sequelize to manage timestamps
+    timestamps: false,
 });
 
-// Define the foreign key relationships
 ProductLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
 ProductLike.belongsTo(ProductInfo, { foreignKey: 'product_id' });
 

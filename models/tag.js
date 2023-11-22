@@ -1,8 +1,6 @@
-// tag.js
-
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const ProductInfo = require('./productInfo'); // Importing the ProductInfo model for the foreign key relationship
+const ProductInfo = require('./productInfo');
 
 const Tag = db.define('tag', {
     id: {
@@ -35,10 +33,9 @@ const Tag = db.define('tag', {
     },
 }, {
     tableName: 'tag',
-    timestamps: false, // If you don't want Sequelize to manage timestamps
+    timestamps: false,
 });
 
-// Define the foreign key relationship
 Tag.belongsTo(ProductInfo, { foreignKey: 'product_id' });
 
 module.exports = Tag;

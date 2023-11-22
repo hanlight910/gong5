@@ -1,9 +1,7 @@
-// commentInfo.js
-
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const ProductInfo = require('./productInfo'); // Importing the ProductInfo model for the foreign key relationship
-const UserInfo = require('./userInfo'); // Importing the UserInfo model for the foreign key relationship
+const ProductInfo = require('./productInfo');
+const UserInfo = require('./userInfo');
 
 const CommentInfo = db.define('comment_info', {
     id: {
@@ -49,10 +47,9 @@ const CommentInfo = db.define('comment_info', {
     },
 }, {
     tableName: 'comment_info',
-    timestamps: false, // If you don't want Sequelize to manage timestamps
+    timestamps: false,
 });
 
-// Define the foreign key relationships
 CommentInfo.belongsTo(ProductInfo, { foreignKey: 'product_id' });
 CommentInfo.belongsTo(UserInfo, { foreignKey: 'user_id' });
 
