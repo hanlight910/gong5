@@ -1,8 +1,6 @@
-// productInfo.js
-
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const UserInfo = require('./userInfo'); // Importing the UserInfo model for the foreign key relationship
+const UserInfo = require('./userInfo');
 
 const ProductInfo = db.define('product_info', {
     id: {
@@ -63,10 +61,9 @@ const ProductInfo = db.define('product_info', {
     },
 }, {
     tableName: 'product_info',
-    timestamps: false, // If you don't want Sequelize to manage timestamps
+    timestamps: false,
 });
 
-// Define the foreign key relationship
 ProductInfo.belongsTo(UserInfo, { foreignKey: 'user_id' });
 
 module.exports = ProductInfo;

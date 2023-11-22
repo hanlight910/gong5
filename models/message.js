@@ -1,8 +1,6 @@
-// message.js
-
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const UserInfo = require('./userInfo'); // Importing the UserInfo model for the foreign key relationship
+const UserInfo = require('./userInfo');
 
 const Message = db.define('message', {
     id: {
@@ -43,10 +41,9 @@ const Message = db.define('message', {
     },
 }, {
     tableName: 'message',
-    timestamps: false, // If you don't want Sequelize to manage timestamps
+    timestamps: false,
 });
 
-// Define the foreign key relationships
 Message.belongsTo(UserInfo, { foreignKey: 'send_user', as: 'sender' });
 Message.belongsTo(UserInfo, { foreignKey: 'get_user', as: 'receiver' });
 

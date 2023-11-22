@@ -1,9 +1,7 @@
-// commentLike.js
-
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const CommentInfo = require('./commentInfo'); // Importing the CommentInfo model for the foreign key relationship
-const UserInfo = require('./userInfo'); // Importing the UserInfo model for the foreign key relationship
+const CommentInfo = require('./commentInfo');
+const UserInfo = require('./userInfo');
 
 const CommentLike = db.define('comment_like', {
     id: {
@@ -40,10 +38,9 @@ const CommentLike = db.define('comment_like', {
     },
 }, {
     tableName: 'comment_like',
-    timestamps: false, // If you don't want Sequelize to manage timestamps
+    timestamps: false,
 });
 
-// Define the foreign key relationships
 CommentLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
 CommentLike.belongsTo(CommentInfo, { foreignKey: 'comment_id' });
 
