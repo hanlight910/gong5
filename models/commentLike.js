@@ -42,6 +42,5 @@ const CommentLike = db.define('comment_like', {
 });
 
 CommentLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
-CommentLike.belongsTo(CommentInfo, { foreignKey: 'comment_id' });
 
 module.exports = CommentLike;

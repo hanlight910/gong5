@@ -5,13 +5,9 @@ POST {{host}}/signup
 Content-Type: application/json
 
 {
-   "email": "example2@example.com",
+   "email": "example222@example.com",
    "password": "eXampLeP@ss",
-   "name": "관리자"
-   "birthday":"1999-09-09",
-   "address":"19990909",
-   "phoneNumber":"01044445555",
-   "profileImage":"httpsdajkjldi",
+   "name": "관리자222"
 }
 
 ### 로그인
