@@ -33,6 +33,15 @@ router.post('/products/like/:productId', authenticateToken, async (req, res) => 
             product_id: productId,
         });
 
+        // 상품 좋아요 수 증가
+        const product = await productInfo.findByPk(productId);
+        if (product) {
+            await product.increment('like');
+        } else {
+            return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
+        }
+
+
         res.status(201).json({ message: '상품에 좋아요를 눌렀습니다' });
     } catch (error) {
         console.error(error);
@@ -79,6 +88,9 @@ router.post('/comments/like/:commentId', authenticateToken, async (req, res) => 
                 comment_id: commentId,
             },
         });
+
+        // 댓글 좋아요 증가
+        await commentInfo.increment('like', { where: { commentId } });
 
         if (existingLike) {
             return res.status(400).json({ error: '이미 좋아요를 누른 댓글입니다.' });

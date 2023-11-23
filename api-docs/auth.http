@@ -5,9 +5,9 @@ POST {{host}}/signup
 Content-Type: application/json
 
 {
-   "email": "example2222@example.com",
+   "email": "example23@example.com",
    "password": "eXampLe22P@ss",
-   "name": "관리자2122"
+   "name": "관리자23"
 }
 
 ### 로그인
