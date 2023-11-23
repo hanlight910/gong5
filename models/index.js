@@ -36,7 +36,7 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
-
+db.CommentLike.belongsTo(db.CommentInfo, { foreignKey: 'comment_id' });
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

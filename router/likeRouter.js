@@ -68,12 +68,12 @@ router.delete('/products/like/:productId', authenticateToken, async (req, res) =
 
 
 // 댓글 좋아요 생성
-router.post('/comments/:commentId/like', authenticateToken, async (req, res) => {
+router.post('/comments/like/:commentId', authenticateToken, async (req, res) => {
     try {
         const { commentId } = req.params;
         const userId = req.locals.user.userId;
 
-        const existingLike = await CommentLike.findOne({
+        const existingLike = await commentLike.findOne({
             where: {
                 user_id: userId,
                 comment_id: commentId,
@@ -84,7 +84,7 @@ router.post('/comments/:commentId/like', authenticateToken, async (req, res) => 
             return res.status(400).json({ error: '이미 좋아요를 누른 댓글입니다.' });
         }
 
-        await CommentLike.create({
+        await commentLike.create({
             user_id: userId,
             comment_id: commentId,
         });
@@ -97,12 +97,12 @@ router.post('/comments/:commentId/like', authenticateToken, async (req, res) => 
 });
 
 // 댓글 좋아요 취소
-router.delete('/comments/:commentId/like', authenticateToken, async (req, res) => {
+router.delete('/comments/like/:commentId', authenticateToken, async (req, res) => {
     try {
         const { commentId } = req.params;
         const userId = req.locals.user.userId;
 
-        const like = await CommentLike.findOne({
+        const like = await commentLike.findOne({
             where: {
                 user_id: userId,
                 comment_id: commentId,
