@@ -31,7 +31,7 @@ const CommentInfo = db.define('comment_info', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    like_cnt: {
+    like: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
@@ -52,6 +52,7 @@ const CommentInfo = db.define('comment_info', {
 });
 
 CommentInfo.belongsTo(UserInfo, { foreignKey: 'user_id', targetKey: 'id' });
+
 CommentInfo.hasMany(CommentLike, { foreignKey: 'comment_id' });
 
 module.exports = CommentInfo;
