@@ -31,7 +31,7 @@ const CommentInfo = db.define('comment_info', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    like_cnt: {
+    like: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,

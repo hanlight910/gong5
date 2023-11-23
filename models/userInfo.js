@@ -51,4 +51,6 @@ const UserInfo = db.define('user_info', {
     timestamps: false,
 });
 
+
+
 module.exports = UserInfo;
