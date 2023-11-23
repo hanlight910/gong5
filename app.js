@@ -3,8 +3,9 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const db = require('./config/database');
-const userRouter = require('./router/userRouter')
+const userRouter = require('./router/userRouter');
 const productRouter = require('./router/productsRouter');
+const tagRouter = require('./router/tagsRouter');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,6 +14,8 @@ app.use(bodyParser.json());
 
 app.use('/auth', userRouter);
 app.use('/', productRouter);
+app.use('/', tagRouter);
+
 app.listen(port, async () => {
 	try {
 		console.log(`서버가 열렸습니다. ${port}`);
