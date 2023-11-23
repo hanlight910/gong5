@@ -6,6 +6,7 @@ const db = require('./config/database');
 const userRouter = require('./router/userRouter');
 const productRouter = require('./router/productsRouter');
 const tagRouter = require('./router/tagsRouter');
+const messageRouter = require('./router/messageRouter');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 app.use('/auth', userRouter);
 app.use('/', productRouter);
 app.use('/', tagRouter);
+app.use('/message', messageRouter);
 
 app.listen(port, async () => {
 	try {

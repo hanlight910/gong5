@@ -44,7 +44,4 @@ const Message = db.define('message', {
     timestamps: false,
 });
 
-Message.belongsTo(UserInfo);
-UserInfo.hasMany(Message);
-
 module.exports = Message;
