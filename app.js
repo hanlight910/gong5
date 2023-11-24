@@ -7,13 +7,14 @@ const userRouter = require('./router/userRouter');
 const productRouter = require('./router/productsRouter');
 const likeRouter = require('./router/likeRouter')
 const tagRouter = require('./router/tagsRouter');
+
 const cors = require('cors');
-const cors = require('cors')
 
 const app = express();
 const port = process.env.PORT || 3010;
 
 app.use(cors());
+
 
 
 app.use(cors);
