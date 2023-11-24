@@ -366,24 +366,3 @@ body {
   
   /*# sourceMappingURL=style.css.map */
   
-/* 메인페이지 설정 */
-.navbar-brand {
-    font-weight: bold;
-    font-style: italic;
-    color: #ff8a3d;
-    display: flex;
-    align-items: center;
-}
-
-.navbar-brand i {
-    margin-right: 8px;
-}
-
-.navbar-nav .nav-item a {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-nav .nav-item i {
-    margin-right: 8px;
-}
