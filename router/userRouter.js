@@ -7,10 +7,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Op } = require('sequelize');
 const authenticateToken = require('../middleware/authMiddleware');
-
+const imageUploader = require('../middleware/imageUploader.js');
 const Auth = require('../models/userInfo');
+const { userInfo } = require('os');
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', imageUploader.single('image'), async (req, res) => {
 	try {
 		const { email, password, name } = req.body;
 
@@ -45,6 +46,7 @@ router.post('/signup', async (req, res) => {
 			email,
 			password: hashedPassword,
 			name,
+			profileImage: req.file.key,
 		});
 
 		const responseUser = {
@@ -108,5 +110,26 @@ router.get('/user', authenticateToken, async (req, res) => {
 	}
 });
 
+//수정
+router.put('/user', authenticateToken, imageUploader.single('image'), async (req, res) => {
+	try {
+		const { birthday, address, phoneNumber } = req.body;
+		const userId = req.locals.user.userId;
+
+		await Auth.update({
+			birthday,
+			address,
+			phoneNumber,
+			profileImage: req.file.key,
+		},
+			{
+				where: { id: userId }
+			})
+		res.json({ message: '유저정보 수정 완료' });
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ err: '서버 에러' });
+	}
+})
 
 module.exports = router;
