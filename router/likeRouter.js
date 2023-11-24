@@ -9,8 +9,6 @@ const productInfo = require('../models/productInfo');
 const authenticateToken = require('../middleware/authMiddleware.js');
 const ProductLike = require('../models/productLike');
 
-
-
 // 상품 좋아요 생성
 router.post('/products/like/:productId', authenticateToken, async (req, res) => {
     try {
@@ -67,6 +65,7 @@ router.delete('/products/like/:productId', authenticateToken, async (req, res) =
         }
 
         await like.destroy();
+        await productInfo.decrement('like', { where: { id: productId } });
 
         res.json({ message: '상품 좋아요 취소 완료' });
     } catch (error) {
