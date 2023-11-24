@@ -38,7 +38,7 @@ const ProductInfo = db.define('product_info', {
     },
     image: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     delivery: {
         type: DataTypes.BOOLEAN,

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>ONE LIGHT - 유저 정보 수정</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css"
+        integrity="sha256-G3IAYJYIQvZgPksNQDbjvxd/Ca1SfCDFwu2s2lt0oGo=" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="../style.css">
+</head>
+
+<body>
+    <nav class="navbar nav-global nav-global-sign navbar-expand-sm">
+        <div class="container d-flex justify-content-center">
+            <div class="container">           
+                <a class="navbar-brand" href="#">
+                    <i class="material-icons"><em>lightbulb</i> ONE LIGHT</em>
+                </a>
+        </div>
+    </nav>
+
+    <div class="container container-sm container-sign">
+        <form class="form-sign" method="put" action="/user" enctype="multipart/form-data">
+            <h5 class="form-headline">💡 유저 정보 수정 💡</h5>
+            <div class="form-group">
+                <input type="text" class="form-control" id="birthday" name="birthday" placeholder="생년월일 입력">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="address" name="address" placeholder="주소 입력">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="전화번호 입력">
+            </div>
+            <div class="form-group">
+                <label for="image">프로필 사진 업로드</label>
+                <input type="file" class="form-control-file" id="image" name="image">
+            </div>
+            <button type="submit" class="btn btn-block btn-primary">정보 수정 완료</button>
+        </form>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.js"
+        integrity="sha256-59/apVFrosMLFX2dHZLGvb3nPpu7e0Yx1rsDr1dTRrk=" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>

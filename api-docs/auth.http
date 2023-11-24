@@ -1,4 +1,4 @@
-@host = http://localhost:3000/auth
+@host = http://localhost:3010/auth
 
 ### 회원가입
 POST {{host}}/signup
