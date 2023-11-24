@@ -8,6 +8,7 @@ const commentInfo = require('../models/commentInfo')
 const CommentLike = require('../models/commentLike')
 const Tag = require('../models/tag')
 const { Sequelize, Op } = require('sequelize');
+const ProductLike = require('../models/productLike');
 //생성
 router.post('/products', authenticateToken, imageUploader.single('image'), async (req, res) => {
 	console.log("req.body", req.body)
@@ -54,7 +55,7 @@ router.post('/products', authenticateToken, imageUploader.single('image'), async
 });
 
 //수정
-router.put('/products/:productId', authenticateToken, async (req, res) => {
+router.put('/products/:productId', authenticateToken, imageUploader.single('image'), async (req, res) => {
 	try {
 		const { title, content, price, status } = req.body;
 		const { productId } = req.params;
@@ -68,6 +69,7 @@ router.put('/products/:productId', authenticateToken, async (req, res) => {
 			content,
 			price,
 			status,
+			image: req.file.key,
 		});
 
 		res.status(201).json({ message: '상품을 수정하는데 성공하였습니다' });
@@ -147,6 +149,10 @@ router.get('/products/:productId', async (req, res) => {
 					attributes: ['id', 'name'],
 				},
 				{
+					model: ProductLike,
+					attributes: ['id'],
+				},
+				{
 					model: commentInfo,
 					attributes: ['id', 'comment', 'user_id'],
 					include: [
@@ -177,9 +183,11 @@ router.get('/products/:productId', async (req, res) => {
 			username: product.user_info.name,
 			good: product.good,
 			commentInfo: product.comment_infos,
+			product_likes: product.product_likes,
 			watched: product.watched,
 			createdAt: product.createdAt,
 			updatedAt: product.updatedAt,
+			likes: product.like,
 		};
 
 		res.json({ product: productInfo });

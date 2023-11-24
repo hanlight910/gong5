@@ -2,8 +2,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const CommentInfo = require('./commentInfo')
 const UserInfo = require('./userInfo');
- 
-const CommentLike = sequelize.define('commentLike', {
+
+const CommentLike = sequelize.define('comment_like', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -37,7 +37,7 @@ const CommentLike = sequelize.define('commentLike', {
         defaultValue: DataTypes.NOW,
     },
 }, {
-    tableName: 'commentLike',
+    tableName: 'comment_like',
     timestamps: false,
 });
 

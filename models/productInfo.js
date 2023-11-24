@@ -2,6 +2,7 @@ const { DataTypes, ENUM } = require('sequelize');
 const db = require('../config/database');
 const UserInfo = require('./userInfo');
 const CommentInfo = require('./commentInfo');
+const ProductLike = require('./productLike');
 
 const ProductInfo = db.define('product_info', {
     id: {
@@ -70,5 +71,5 @@ const ProductInfo = db.define('product_info', {
 
 ProductInfo.belongsTo(UserInfo, { foreignKey: 'user_id' });
 ProductInfo.hasMany(CommentInfo, { foreignKey: 'product_id' });
-
+ProductInfo.hasMany(ProductLike, { foreignKey: 'product_id' });
 module.exports = ProductInfo;
