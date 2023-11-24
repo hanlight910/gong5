@@ -2,14 +2,17 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/productInfo');
 const authenticateToken = require('../middleware/authMiddleware.js');
+const imageUploader = require('../middleware/imageUploader.js');
 const userInfo = require('../models/userInfo');
 const commentInfo = require('../models/commentInfo')
 const CommentLike = require('../models/commentLike')
+const Tag = require('../models/tag')
 const { Sequelize, Op } = require('sequelize');
 //생성
-router.post('/products', authenticateToken, async (req, res) => {
+router.post('/products', authenticateToken, imageUploader.single('image'), async (req, res) => {
+	console.log("req.body", req.body)
 	try {
-		const { title, price, content } = req.body;
+		const { title, price, content, tags } = req.body;
 
 		if (!title) {
 			return res.status(400).json({
@@ -39,9 +42,11 @@ router.post('/products', authenticateToken, async (req, res) => {
 			title,
 			price,
 			content,
-			status: 'FOR_SALE',
+			image: req.file.key,
 		});
-		res.status(201).json({ message: '상품을 생성하는데 성공하였습니다' });
+
+		const createdTags = await createTags(product, tags);
+		res.status(201).json({ product });
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.' });
@@ -183,5 +188,21 @@ router.get('/products/:productId', async (req, res) => {
 		res.status(500).json({ error: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.' });
 	}
 });
+
+const createTags = async (product, tags) => {
+	const createdTags = [];
+
+	const parsedTags = JSON.parse(tags);
+
+	for (const tagText of parsedTags) {
+		const createdTag = await Tag.create({
+			product_id: product.id,
+			tag_text: tagText,
+		});
+		createdTags.push(createdTag);
+	}
+
+	return createdTags;
+};
 
 module.exports = router;

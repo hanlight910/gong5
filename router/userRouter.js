@@ -22,7 +22,7 @@ router.post('/signup', async (req, res) => {
 
 		const existingUser = await Auth.findOne({
 			where: {
-				[Op.or]: [{ email: email }, { name: name }],
+				[Op.or]: [{ email: email }],
 			},
 		});
 
@@ -30,7 +30,7 @@ router.post('/signup', async (req, res) => {
 
 			return res
 				.status(400)
-				.json({ error: 'email이나 username이 이미 사용 중입니다.' });
+				.json({ error: '이미 존재하는 email이 있습니다.' });
 		}
 
 		if (password.length < 6) {
