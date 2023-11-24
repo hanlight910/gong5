@@ -10,10 +10,10 @@ const Tag = require('../models/tag')
 const { Sequelize, Op } = require('sequelize');
 const ProductLike = require('../models/productLike');
 //생성
-router.post('/products', authenticateToken, imageUploader.single('image'), async (req, res) => {
+router.post('/products', authenticateToken, async (req, res) => {
 	console.log("req.body", req.body)
 	try {
-		const { title, price, content, tags } = req.body;
+		const { title, price, description, tags } = req.body;
 
 		if (!title) {
 			return res.status(400).json({
@@ -21,7 +21,7 @@ router.post('/products', authenticateToken, imageUploader.single('image'), async
 				message: '제목 입력이 필요합니다.',
 			});
 		}
-
+	
 		if (!price) {
 			return res.status(400).json({
 				success: false,
@@ -29,7 +29,7 @@ router.post('/products', authenticateToken, imageUploader.single('image'), async
 			});
 		}
 
-		if (!content) {
+		if (!description) {
 			return res.status(400).json({
 				success: false,
 				message: '설명 입력이 필요합니다.',
@@ -42,11 +42,9 @@ router.post('/products', authenticateToken, imageUploader.single('image'), async
 			user_id: userId,
 			title,
 			price,
-			content,
-			image: req.file.key,
+			constents: description,
 		});
 
-		const createdTags = await createTags(product, tags);
 		res.status(201).json({ product });
 	} catch (error) {
 		console.error(error);

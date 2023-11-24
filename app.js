@@ -7,16 +7,22 @@ const userRouter = require('./router/userRouter');
 const productRouter = require('./router/productsRouter');
 const likeRouter = require('./router/likeRouter')
 const tagRouter = require('./router/tagsRouter');
+const cors = require('cors')
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3010;
+
+app.use(cors());
+
 
 app.use(bodyParser.json());
+
 
 app.use('/auth', userRouter);
 app.use('/', productRouter);
 app.use('/', likeRouter);
 app.use('/', tagRouter);
+
 
 app.listen(port, async () => {
 	try {
@@ -35,3 +41,4 @@ async function testDBConnection() {
 }
 
 testDBConnection();
+
