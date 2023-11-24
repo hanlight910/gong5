@@ -7,7 +7,7 @@ const userRouter = require('./router/userRouter');
 const productRouter = require('./router/productsRouter');
 const likeRouter = require('./router/likeRouter')
 const tagRouter = require('./router/tagsRouter');
-
+const messageRouter = require('./router/messageRouter')
 const cors = require('cors');
 
 const app = express();
@@ -21,7 +21,7 @@ app.use('/auth', userRouter);
 app.use('/', productRouter);
 app.use('/', likeRouter);
 app.use('/', tagRouter);
-
+app.use('/', messageRouter);
 app.listen(port, async () => {
 	try {
 		console.log(`서버가 열렸습니다. ${port}`);

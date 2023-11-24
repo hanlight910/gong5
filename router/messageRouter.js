@@ -36,12 +36,14 @@ router.post('/message', async (req, res) => {
       get_user,
       test_message,
     });
+    console.log('Message created successfully:', newMessage);
     res.status(201).json(newMessage);
   } catch (error) {
-    console.error(error);
+    console.error('Error creating message:', error);
     res.status(500).json({ error: '서버 오류' });
   }
 });
+
 router.put('/:id', async (req, res) => {
   const messageId = req.params.id;
   const { send_user, get_user, test_message } = req.body;
