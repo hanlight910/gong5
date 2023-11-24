@@ -38,7 +38,7 @@ const upload = multer({
     fileFilter: fileFilter,
     storage: multerS3({
         s3: s3,
-        bucket: 'onelinght',
+        bucket: 'onelight',
         acl: 'public-read',
         key: (req, file, cb) => {
             cb(null, 'uploads/' + Date.now() + '_' + file.originalname);

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const authenticateMiddleware = (req, res, next) => {
 	const authHeader = req.headers.authorization;
-
+	
 	if (!authHeader || !authHeader.startsWith('Bearer ')) {
 		return res.status(401).json({ error: '로그인이 필요합니다.' });
 	}
@@ -22,10 +22,11 @@ const authenticateMiddleware = (req, res, next) => {
 				return res.status(401).json({ error: '토큰이 유효하지 않습니다.' });
 			}
 		}
-
+		
 		req.locals = { user };
 		next();
 	});
+	
 };
 
 module.exports = authenticateMiddleware;
