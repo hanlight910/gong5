@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.ok) {
                 const result = await response.json();
                 console.log('Product created successfully:', result.product);
-                window.location.href = '메인페이지 주소';
+                window.location.href = '';
             } else {
                 const errorData = await response.json();
                 console.error('Error creating product:', errorData.message);

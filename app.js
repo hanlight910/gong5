@@ -7,18 +7,15 @@ const userRouter = require('./router/userRouter');
 const productRouter = require('./router/productsRouter');
 const likeRouter = require('./router/likeRouter')
 const tagRouter = require('./router/tagsRouter');
+
 const cors = require('cors');
-const cors = require('cors')
 
 const app = express();
 const port = process.env.PORT || 3010;
 
 app.use(cors());
 
-
-app.use(cors);
 app.use(bodyParser.json());
-
 
 app.use('/auth', userRouter);
 app.use('/', productRouter);
@@ -38,7 +35,7 @@ async function testDBConnection() {
         console.log('Sequelize로 DB 연결에 성공했습니다.');
     } catch (error) {
         console.error('DB 연결에 실패했습니다.', error);
-        throw error; // DB 연결에 실패하면 예외를 던져서 서버 구동을 중단합니다.
+        throw error;
     }
 }
 
