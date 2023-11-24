@@ -13,41 +13,6 @@ const ProductLike = require('../models/productLike');
 
 
 
-// 메인페이지 렌더링
-router.get('/', async (req, res) => {
-    try {
-        // 로그인 여부 확인
-        const isLoggedIn = req.locals.user ? true : false;
-
-        const { sort } = req.query;
-
-        const order =
-            sort && sort.toUpperCase() === 'ASC'
-                ? [['createdAt', 'ASC']]
-                : [['createdAt', 'DESC']];
-
-        const products = await Product.findAll({
-            attributes: ['id', 'title', 'price', 'content', 'status', 'image', 'delivery', 'good', 'watched', 'createdAt', 'updatedAt',],
-            order,
-            include: {
-                model: userInfo,
-                attributes: ['name'],
-            },
-        });
-
-        res.render('main', { products, isLoggedIn });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.' });
-    }
-});
-
-
-
-
-
-
-
 //생성
 router.post('/products', authenticateToken, imageUploader.single('image'), async (req, res) => {
 	console.log("req.body", req.body)
@@ -77,6 +42,8 @@ router.post('/products', authenticateToken, imageUploader.single('image'), async
 
 
 		const userId = req.locals.user.userId;
+		const image = req.file ? req.file.key : null;	//req.file이 정의되지 않았을 때 해당 속성을 읽으려고 하여 발생하는 오류 해결
+
 		const product = await Product.create({
 			user_id: userId,
 			title,
@@ -239,7 +206,7 @@ router.get('/products/:productId', async (req, res) => {
 const createTags = async (product, tags) => {
 	const createdTags = [];
 
-	const parsedTags = JSON.parse(tags);
+	const parsedTags = tags.split(','); // split으로 수정, ','기준으로 태그 나눠서 배열로 만듦
 
 	for (const tagText of parsedTags) {
 		const createdTag = await Tag.create({

@@ -7,16 +7,19 @@ const userRouter = require('./router/userRouter');
 const productRouter = require('./router/productsRouter');
 const likeRouter = require('./router/likeRouter')
 const tagRouter = require('./router/tagsRouter');
-
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(cors);
 app.use(bodyParser.json());
 
 app.use('/auth', userRouter);
 app.use('/', productRouter);
 app.use('/', likeRouter);
 app.use('/', tagRouter);
+
+
 
 async function startServer() {
     try {
@@ -27,6 +30,7 @@ async function startServer() {
     } catch (error) {
         console.error('DB 연결 또는 초기화 중에 오류가 발생했습니다.', error);
     }
+
 }
 
 async function testDBConnection() {
