@@ -9,6 +9,45 @@ const CommentLike = require('../models/commentLike')
 const Tag = require('../models/tag')
 const { Sequelize, Op } = require('sequelize');
 const ProductLike = require('../models/productLike');
+
+
+
+
+// 메인페이지 렌더링
+router.get('/', async (req, res) => {
+    try {
+        // 로그인 여부 확인
+        const isLoggedIn = req.locals.user ? true : false;
+
+        const { sort } = req.query;
+
+        const order =
+            sort && sort.toUpperCase() === 'ASC'
+                ? [['createdAt', 'ASC']]
+                : [['createdAt', 'DESC']];
+
+        const products = await Product.findAll({
+            attributes: ['id', 'title', 'price', 'content', 'status', 'image', 'delivery', 'good', 'watched', 'createdAt', 'updatedAt',],
+            order,
+            include: {
+                model: userInfo,
+                attributes: ['name'],
+            },
+        });
+
+        res.render('main', { products, isLoggedIn });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.' });
+    }
+});
+
+
+
+
+
+
+
 //생성
 router.post('/products', authenticateToken, imageUploader.single('image'), async (req, res) => {
 	console.log("req.body", req.body)
@@ -121,7 +160,7 @@ router.get('/products', async (req, res) => {
 				: [['createdAt', 'DESC']];
 
 		const products = await Product.findAll({
-			attributes: ['id', 'title', 'price', 'content', 'status', 'image', 'delivery', 'good', 'watched', 'createdAt', 'updatedAt',],
+			attributes: ['id', 'title', 'price', 'content', 'status', 'image', 'delivery', 'like', 'watched', 'createdAt', 'updatedAt',],
 			order,
 			include: {
 				model: userInfo,
@@ -181,7 +220,7 @@ router.get('/products/:productId', async (req, res) => {
 			image: product.image,
 			delivery: product.delivery,
 			username: product.user_info.name,
-			good: product.good,
+			like: product.like,
 			commentInfo: product.comment_infos,
 			product_likes: product.product_likes,
 			watched: product.watched,
