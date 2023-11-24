@@ -42,16 +42,17 @@ const ProductInfo = db.define('product_info', {
     },
     delivery: {
         type: DataTypes.BOOLEAN,
-        allowNull: true,
+        allowNull: true,       
     },
     like: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-        defaultValue: 0,
+        allowNull: false,
+         defaultValue: 0,
+
     },
     watched: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         defaultValue: 0,
     },
     createdAt: {
