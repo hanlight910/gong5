@@ -9,6 +9,10 @@ const CommentLike = require('../models/commentLike')
 const Tag = require('../models/tag')
 const { Sequelize, Op } = require('sequelize');
 const ProductLike = require('../models/productLike');
+
+
+
+
 //생성
 router.post('/products', authenticateToken, async (req, res) => {
 	console.log("req.body", req.body)
@@ -38,6 +42,8 @@ router.post('/products', authenticateToken, async (req, res) => {
 
 
 		const userId = req.locals.user.userId;
+		const image = req.file ? req.file.key : null;	//req.file이 정의되지 않았을 때 해당 속성을 읽으려고 하여 발생하는 오류 해결
+
 		const product = await Product.create({
 			user_id: userId,
 			title,
@@ -119,7 +125,7 @@ router.get('/products', async (req, res) => {
 				: [['createdAt', 'DESC']];
 
 		const products = await Product.findAll({
-			attributes: ['id', 'title', 'price', 'content', 'status', 'image', 'delivery', 'good', 'watched', 'createdAt', 'updatedAt',],
+			attributes: ['id', 'title', 'price', 'content', 'status', 'image', 'delivery', 'like', 'watched', 'createdAt', 'updatedAt',],
 			order,
 			include: {
 				model: userInfo,
@@ -179,7 +185,7 @@ router.get('/products/:productId', async (req, res) => {
 			image: product.image,
 			delivery: product.delivery,
 			username: product.user_info.name,
-			good: product.good,
+			like: product.like,
 			commentInfo: product.comment_infos,
 			product_likes: product.product_likes,
 			watched: product.watched,
@@ -198,7 +204,7 @@ router.get('/products/:productId', async (req, res) => {
 const createTags = async (product, tags) => {
 	const createdTags = [];
 
-	const parsedTags = JSON.parse(tags);
+	const parsedTags = tags.split(','); // split으로 수정, ','기준으로 태그 나눠서 배열로 만듦
 
 	for (const tagText of parsedTags) {
 		const createdTag = await Tag.create({
