@@ -1,8 +1,8 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const UserInfo = require('./userInfo');
-// const CommentLike = require('./commentLike'); // 수정: commentLike로 변경
-const ProductInfo = require('./productInfo');
+const CommentLike = require('./commentLike');
+
 const CommentInfo = db.define('comment_info', {
     id: {
         type: DataTypes.INTEGER,
@@ -14,29 +14,28 @@ const CommentInfo = db.define('comment_info', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: ProductInfo,
+            model: 'product_info', // 이 부분을 수정해야 할 수 있습니다.
             key: 'id',
         },
+    },
+    comment: {
+        type: DataTypes.TEXT,
+        allowNull: true,
     },
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: UserInfo,
-            key: 'id', // 수정: 'user_info'가 아닌 UserInfo로 변경
+            key: 'id',
         },
-    },
-    comment: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    like: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0,
     },
 }, {
     tableName: 'comment_info',
     timestamps: true,
 });
+
+CommentInfo.belongsTo(UserInfo, { foreignKey: 'user_id' });
+CommentInfo.hasMany(CommentLike, { foreignKey: 'comment_id' }); // CommentInfo와 CommentLike 간의 관계를 설정합니다.
+
 module.exports = CommentInfo;

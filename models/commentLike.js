@@ -22,7 +22,7 @@ const CommentLike = db.define('comment_like', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: CommentInfo,
+            model: 'comment_info',
             key: 'id',
         },
     },
@@ -31,8 +31,6 @@ const CommentLike = db.define('comment_like', {
     timestamps: true,
 });
 
-CommentLike.belongsTo(UserInfo, { foreignKey: 'user_id', targetKey: 'id' });
-CommentLike.belongsTo(CommentInfo, { foreignKey: 'comment_id', targetKey: 'id' });
-
+CommentLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
 
 module.exports = CommentLike;

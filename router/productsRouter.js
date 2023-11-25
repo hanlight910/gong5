@@ -25,7 +25,7 @@ router.post('/products', authenticateToken, async (req, res) => {
 				message: '제목 입력이 필요합니다.',
 			});
 		}
-	
+
 		if (!price) {
 			return res.status(400).json({
 				success: false,
@@ -153,12 +153,8 @@ router.get('/products/:productId', async (req, res) => {
 					attributes: ['id', 'name'],
 				},
 				{
-					model: ProductLike,
-					attributes: ['id'],
-				},
-				{
 					model: commentInfo,
-					attributes: ['id', 'comment', 'user_id'],
+					attributes: ['id', 'comment', 'user_id', 'updatedAt'],
 					include: [
 						{
 							model: userInfo,
@@ -176,6 +172,9 @@ router.get('/products/:productId', async (req, res) => {
 		if (!product) {
 			return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
 		}
+		await product.increment('watched');
+		console.log(product);
+
 		const productInfo = {
 			id: product.id,
 			title: product.title,
@@ -184,11 +183,11 @@ router.get('/products/:productId', async (req, res) => {
 			status: product.status,
 			image: product.image,
 			delivery: product.delivery,
-			username: product.user_info.name,
+			username: product.user_info,
 			like: product.like,
-			commentInfo: product.comment_infos,
-			product_likes: product.product_likes,
-			watched: product.watched,
+			comment_info: product.comment_infos,
+			product_likes: product.product_like,
+			watched: product.watched + 1,
 			createdAt: product.createdAt,
 			updatedAt: product.updatedAt,
 			likes: product.like,

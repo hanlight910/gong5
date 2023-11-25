@@ -27,7 +27,7 @@ router.post('/comment/:product_id', authenticateToken, async (req, res) => {
     res.status(201).json({ message: '댓글 등록 완료', addComment });
 
     // 새로고침 
-    location.reload();
+    // location.reload();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: '서버 에러' });
@@ -43,9 +43,9 @@ router.put('/comment/:commentId', authenticateToken, async (req, res) => {
     const userId = req.locals.user.userId;
 
     const existcomment = await CommentInfo.findByPk(commentId);
-  
-    if(existcomment.user_id !== userId) {
-      return res.status(403).json({ error: '해당 상품을 수정할 권한이 없습니다.'})
+
+    if (existcomment.user_id !== userId) {
+      return res.status(403).json({ error: '해당 상품을 수정할 권한이 없습니다.' })
     }
 
     await existcomment.update({ comment });
@@ -68,15 +68,15 @@ router.delete('/comment/:commentId', authenticateToken, async (req, res) => {
     const userId = req.locals.user.userId;
 
     const existcomment = await CommentInfo.findByPk(commentId);
-  
-    if(existcomment.user_id !== userId) {
-      return res.status(403).json({ error: '해당 상품을 삭제할 권한이 없습니다.'})
+
+    if (existcomment.user_id !== userId) {
+      return res.status(403).json({ error: '해당 상품을 삭제할 권한이 없습니다.' })
     }
 
     await existcomment.destroy();
 
     res.status(201).json({ message: "댓글을 삭제하였습니다." });
-    
+
     // 새로고침 
     location.reload();
   } catch (error) {

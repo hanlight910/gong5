@@ -41,11 +41,10 @@ async function fetchAndDisplayProducts() {
         fetch('http://localhost:3010/products', options)
             .then(response => response.json())
             .then(response => {
-                console.log(response.products);
                 response.products.map(element => {
                     cardList.innerHTML += `
                 <li class="list-products-item col-12 col-md-4 col-lg-3">
-                <a href="detail.html">
+                <a href="detail.html?id=${element.id}">
                     <div class="card">
                         <div class="card-img-top"
                             style="background: url('https://onelinght.s3.ap-northeast-2.amazonaws.com/${element.image}') no-repeat center; background-size: cover; height: 240px">

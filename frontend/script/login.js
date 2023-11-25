@@ -17,9 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             const data = await response.json();
-
             if (response.ok) {
-                sessionStorage.setItem("loginId", response.accessToken)
+                sessionStorage.setItem("loginId", data.accessToken)
                 // sessionStorage.getItem("loginId")
                 location.href = 'main.html'
             } else {
