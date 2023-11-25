@@ -1,27 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
     fetchAndDisplayProducts();
 });
-
+const cardList = document.querySelector('.list-products')
+const options = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMzliNjIwOTFmMzY0Y2M4MzczMGExMzU3ZWM1YjE3ZCIsInN1YiI6IjY1MmY3NTcyMzU4ZGE3NWI1ZDAwODcyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j6JDptMTCwZT8Gkr2PbQ2rWV5r85H1fKNwS4iF1_o3U'
+    }
+};
 // API를 호출하고 상품 목록을 가져와서 화면에 표시하는 함수
 async function fetchAndDisplayProducts() {
     try {
-        const response = await fetch('http://localhost:3010/products', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            
-        });
+        fetch('http://localhost:3010/products', options)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response.products);
+                response.products.map(element => {
+                    cardList.innerHTML += `
+                <li class="list-products-item col-12 col-md-4 col-lg-3">
+                <a href="detail.html">
+                    <div class="card">
+                        <div class="card-img-top"
+                            style="background: url('https://onelinght.s3.ap-northeast-2.amazonaws.com/${element.image}') no-repeat center; background-size: cover; height: 240px">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="title">${element.title}</h5>
+                            <h6 class="price">${element.price}</h6>
 
-        if (!response.ok) {
-            throw new Error('상품 목록을 가져오는데 실패하였습니다.');
-        }
-
-        // 내용을 확인할 수 없음
-        console.log(response);
+                            <div class="text-muted">
+                                <h6 class="status">${element.status}</h6>
+                                <time datetime=${element.updatedAt}>2개월전</time>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>`
+                });
+            })
+            .catch(err => console.error(err));
     } catch (error) {
         console.error(error);
-        alert('상품 목록을 가져오는데 실패하였습니다.');
+        alert(error);
     }
 }
 
