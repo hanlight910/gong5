@@ -1,0 +1,6 @@
+@host = http://localhost:3010/api/users
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJpYXQiOjE3MDA4MTQ4MTIsImV4cCI6MTcwMDg1ODAxMn0.3_EQupqpkcbTmVehjsPI8q8W88KfxPg8h_J4xMI7KSE
+
+### 내 정보 조회
+GET {{host}}/me
+Authorization: Bearer {{accessToken}}

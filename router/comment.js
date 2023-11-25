@@ -1,43 +1,89 @@
 const express = require('express');
 const router = express.Router();
 
+require('dotenv').config();
+const secretKey = process.env.JWT_SECRET;
+
 const CommentInfo = require('../models/commentInfo');
 const UserInfo = require('../models/userInfo');
 const ProductInfo = require('../models/productInfo');
+const authenticateToken = require('../middleware/authMiddleware');
 
-
-router.post('/comment/:product_id', async (req, res) => { // API comment/:product_id(제품의 PK값)이 필요하지 않은지??
+// 댓글 생성
+router.post('/comment/:product_id', authenticateToken, async (req, res) => {
   try {
-    // 전달해줄 댓글 내용
     const { comment } = req.body;
-    
-    // 댓글을 달 제품의 아이디 값
+
     const product_id = req.params.product_id;
 
-    // 댓글을 단 제품의 아이디, 전달받은 params값과 일치하는 아이디값을 찾는다.
-    const productId = await ProductInfo.findOne({ where: { id : product_id }});
+    const userId = req.locals.user.userId;
 
-    // 댓글을 단 유저의 아이디
-    // const userId = await UserInfo.findOne({ id: userid })
-    // console.log("userId => ", userId)
-    // db에 comment, 댓글단 유저의 아이디, 제품아이디를 저장한다.
-    const addComment = await CommentInfo.create({ 
-      comment, 
-      product_id: productId, 
-      user_id: 1 
+    const addComment = await CommentInfo.create({
+      comment,
+      product_id: product_id,
+      user_id: userId
     });
 
+    res.status(201).json({ message: '댓글 등록 완료', addComment });
 
-    res.status(201).json({ message: '댓글 등록 완료', });
-
+    // 새로고침 
+    // location.reload();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: '서버 에러' });
   }
-  
-  
 
+});
 
-})
+// 댓글 수정
+router.put('/comment/:commentId', authenticateToken, async (req, res) => {
+  try {
+    const { comment } = req.body;
+    const commentId = req.params.commentId;
+    const userId = req.locals.user.userId;
+
+    const existcomment = await CommentInfo.findByPk(commentId);
+
+    if (existcomment.user_id !== userId) {
+      return res.status(403).json({ error: '해당 상품을 수정할 권한이 없습니다.' })
+    }
+
+    await existcomment.update({ comment });
+
+    res.status(201).json({ message: "댓글을 수정하였습니다.", comment: existcomment });
+
+    // 새로고침 
+    location.reload();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: '서버 에러' });
+  }
+
+});
+
+// 댓글 삭제
+router.delete('/comment/:commentId', authenticateToken, async (req, res) => {
+  try {
+    const commentId = req.params.commentId;
+    const userId = req.locals.user.userId;
+
+    const existcomment = await CommentInfo.findByPk(commentId);
+
+    if (existcomment.user_id !== userId) {
+      return res.status(403).json({ error: '해당 상품을 삭제할 권한이 없습니다.' })
+    }
+
+    await existcomment.destroy();
+
+    res.status(201).json({ message: "댓글을 삭제하였습니다." });
+
+    // 새로고침 
+    location.reload();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: '서버 에러' });
+  }
+
+});
 
 module.exports = router;

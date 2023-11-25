@@ -26,19 +26,9 @@ const ProductLike = db.define('product_like', {
             key: 'id',
         },
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
 }, {
     tableName: 'product_like',
-    timestamps: false,
+    timestamps: true,
 });
 
 ProductLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
