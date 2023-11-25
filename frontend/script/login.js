@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = document.getElementById('inputPassword').value;
 
         try {
-            const response = await fetch('/login', {
+            const response = await fetch('http://localhost:3010/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -19,8 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const data = await response.json();
 
             if (response.ok) {
-                console.log('Login successful');
-                console.log('Access Token:', data.accessToken);
+                sessionStorage.setItem("loginId", response.accessToken)
+                // sessionStorage.getItem("loginId")
+                location.href = 'main.html'
             } else {
                 console.error('Login failed:', data.error);
             }

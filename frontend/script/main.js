@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAndDisplayProducts();
 });
 const cardList = document.querySelector('.list-products')
+const headers = document.querySelector('.navbar-nav')
 const options = {
     method: 'GET',
     headers: {
@@ -9,8 +10,33 @@ const options = {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMzliNjIwOTFmMzY0Y2M4MzczMGExMzU3ZWM1YjE3ZCIsInN1YiI6IjY1MmY3NTcyMzU4ZGE3NWI1ZDAwODcyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j6JDptMTCwZT8Gkr2PbQ2rWV5r85H1fKNwS4iF1_o3U'
     }
 };
+
 // API를 호출하고 상품 목록을 가져와서 화면에 표시하는 함수
 async function fetchAndDisplayProducts() {
+    if (sessionStorage.getItem("loginId")) {
+        headers.innerHTML = `
+        <li class="nav-item">
+        <a href="userInfoModify.html" class="btn btn-light">
+            <span>
+                <i class="material-icons">person_add</i>
+                마이페이지
+            </span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="login.html" class="btn btn-light" id = "log_out">
+            <span>
+                <i class="material-icons">login</i>
+                로그아웃
+            </span>
+        </a>
+    </li>
+        `
+        document.querySelector('#log_out').addEventListener('click', function (event) {
+            sessionStorage.removeItem('loginId');
+        })
+    }
+
     try {
         fetch('http://localhost:3010/products', options)
             .then(response => response.json())
