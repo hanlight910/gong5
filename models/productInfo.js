@@ -1,9 +1,6 @@
 const { DataTypes, ENUM } = require('sequelize');
 const db = require('../config/database');
 const UserInfo = require('./userInfo');
-const CommentInfo = require('./commentInfo');
-const ProductLike = require('./productLike');
-const Tag = require('./tag');
 
 
 const ProductInfo = db.define('product_info', {
@@ -57,22 +54,11 @@ const ProductInfo = db.define('product_info', {
         allowNull: false,
         defaultValue: 0,
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
 }, {
     tableName: 'product_info',
-    timestamps: false,
+    timestamps: true,
 });
 
 ProductInfo.belongsTo(UserInfo, { foreignKey: 'user_id' });
-ProductInfo.hasMany(CommentInfo, { foreignKey: 'product_id' });
-ProductInfo.hasMany(ProductLike, { foreignKey: 'product_id' });
+
 module.exports = ProductInfo;

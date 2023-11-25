@@ -1,9 +1,8 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const ProductInfo = require('./productInfo');
 const UserInfo = require('./userInfo');
-const CommentLike = require('./commentLike'); // 수정: commentLike로 변경
-
+// const CommentLike = require('./commentLike'); // 수정: commentLike로 변경
+const ProductInfo = require('./productInfo');
 const CommentInfo = db.define('comment_info', {
     id: {
         type: DataTypes.INTEGER,
@@ -36,22 +35,8 @@ const CommentInfo = db.define('comment_info', {
         allowNull: false,
         defaultValue: 0,
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
 }, {
     tableName: 'comment_info',
-    timestamps: false,
+    timestamps: true,
 });
-
-
-
-
 module.exports = CommentInfo;

@@ -1,14 +1,5 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const CommentInfo = require('./commentInfo');
-const ProductInfo = require('./productInfo');
-const CommentLike = require('./commentLike');
-const Message = require('./message');
-
-
-
-
-
 const UserInfo = db.define('user_info', {
     id: {
         type: DataTypes.INTEGER,
@@ -48,11 +39,5 @@ const UserInfo = db.define('user_info', {
     tableName: 'user_info',
     timestamps: true,
 });
-
-UserInfo.hasMany(CommentInfo, { foreignKey: 'user_id' });
-UserInfo.hasMany(ProductInfo, { foreignKey: 'user_id' });
-UserInfo.hasMany(CommentLike, { foreignKey: 'user_id' });
-UserInfo.hasMany(Message, { foreignKey: 'user_id' });
-
 
 module.exports = UserInfo;

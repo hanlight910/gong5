@@ -3,7 +3,7 @@ const db = require('../config/database');
 const CommentInfo = require('./commentInfo');
 const UserInfo = require('./userInfo');
 
-const CommentLike = sequelize.define('comment_like', {
+const CommentLike = db.define('comment_like', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -26,22 +26,13 @@ const CommentLike = sequelize.define('comment_like', {
             key: 'id',
         },
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
 }, {
     tableName: 'comment_like',
-    timestamps: false,
+    timestamps: true,
 });
 
-
+CommentLike.belongsTo(UserInfo, { foreignKey: 'user_id', targetKey: 'id' });
+CommentLike.belongsTo(CommentInfo, { foreignKey: 'comment_id', targetKey: 'id' });
 
 
 module.exports = CommentLike;
