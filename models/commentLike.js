@@ -1,9 +1,9 @@
-const {  DataTypes  } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const CommentInfo = require('./commentInfo');
 const UserInfo = require('./userInfo');
 
-const CommentLike = db.define('comment_like', {
+const CommentLike = sequelize.define('comment_like', {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
