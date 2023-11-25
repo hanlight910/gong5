@@ -1,5 +1,5 @@
-@host = http://localhost:3000/api/products
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTY5OTg3MjMxOSwiZXhwIjoxNjk5OTE1NTE5fQ.YwbcoCvUWWgfkLmVL8mIm1MkiZxPaV_rZ-krRv5g9Js
+@host = http://localhost:3010/products
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJpYXQiOjE3MDA4MTQ4MTIsImV4cCI6MTcwMDg1ODAxMn0.3_EQupqpkcbTmVehjsPI8q8W88KfxPg8h_J4xMI7KSE
 
 
 ### 상품 생성
@@ -9,28 +9,31 @@ Authorization: Bearer {{accessToken}}
 
 {
    "title": "킨더조이",
-   "price": "5000",
-   "content": "장난감이 들어 있는 초콜렛"
+   "price": "7000",
+   "content": "장난감이 들어 있는 초콜렛",
+   "tags": "['초코','초콜렛']"
 }
+
 
 ### 상품 목록 조회
 GET {{host}}
 
 ### 상품 상세 조회
-GET {{host}}/1
+GET {{host}}/8
 
 ### 상품 수정
-PUT {{host}}/1
+PUT {{host}}/5
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
 {
    "title": "페레로로쉐",
-   "description": "중독성 쩌는 초콜렛",
+   "content": "중독성 쩌는 초콜렛",
+   "price": "5000",
    "status": "SOLD_OUT"
 }
 
 ### 상품 삭제
-DELETE {{host}}/1
+DELETE {{host}}/5
 Content-Type: application/json
 Authorization: Bearer {{accessToken}}

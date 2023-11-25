@@ -26,22 +26,13 @@ const CommentLike = db.define('comment_like', {
             key: 'id',
         },
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
 }, {
     tableName: 'comment_like',
-    timestamps: false,
+    timestamps: true,
 });
 
-CommentLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
-CommentLike.belongsTo(CommentInfo, { foreignKey: 'comment_id' });
+CommentLike.belongsTo(UserInfo, { foreignKey: 'user_id', targetKey: 'id' });
+CommentLike.belongsTo(CommentInfo, { foreignKey: 'comment_id', targetKey: 'id' });
+
 
 module.exports = CommentLike;

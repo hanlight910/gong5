@@ -21,21 +21,10 @@ const Tag = db.define('tag', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
 }, {
     tableName: 'tag',
-    timestamps: false,
+    timestamps: true,
 });
-
 Tag.belongsTo(ProductInfo, { foreignKey: 'product_id' });
 
 module.exports = Tag;

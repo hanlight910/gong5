@@ -1,6 +1,7 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, ENUM } = require('sequelize');
 const db = require('../config/database');
 const UserInfo = require('./userInfo');
+
 
 const ProductInfo = db.define('product_info', {
     id: {
@@ -30,8 +31,9 @@ const ProductInfo = db.define('product_info', {
         allowNull: true,
     },
     status: {
-        type: DataTypes.BOOLEAN,
-        allowNull: true,
+        type: DataTypes.ENUM("판매중", "판매완료"),
+        allowNull: false,
+        defaultValue: "판매중"
     },
     image: {
         type: DataTypes.STRING,
@@ -41,27 +43,20 @@ const ProductInfo = db.define('product_info', {
         type: DataTypes.BOOLEAN,
         allowNull: true,
     },
-    good: {
+    like: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
+        defaultValue: 0,
+
     },
     watched: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    createdAt: {
-        type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
+        defaultValue: 0,
     },
 }, {
     tableName: 'product_info',
-    timestamps: false,
+    timestamps: true,
 });
 
 ProductInfo.belongsTo(UserInfo, { foreignKey: 'user_id' });
