@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const {  DataTypes  } = require('sequelize');
 const db = require('../config/database');
 const ProductInfo = require('./productInfo');
 const UserInfo = require('./userInfo');
@@ -31,7 +31,7 @@ const CommentInfo = db.define('comment_info', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    like_cnt: {
+    like: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
@@ -51,7 +51,7 @@ const CommentInfo = db.define('comment_info', {
     timestamps: false,
 });
 
-CommentInfo.belongsTo(UserInfo, { foreignKey: 'user_id', targetKey: 'id' });
-CommentInfo.hasMany(CommentLike, { foreignKey: 'comment_id' });
+
+
 
 module.exports = CommentInfo;

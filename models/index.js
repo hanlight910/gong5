@@ -37,6 +37,14 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+db.Message.belongsTo(UserInfo, { foreignKey: 'send_user', as: 'sender' });
+db.Message.belongsTo(UserInfo, { foreignKey: 'get_user', as: 'receiver' });
+db.CommentInfo.belongsTo(UserInfo, { foreignKey: 'user_id', targetKey: 'id' });
+db.CommentInfo.belongsTo(ProductInfo, { foreignKey: 'product_id', targetKey: 'id' });
+db.CommentLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
+db.ProductInfo.belongsTo(UserInfo, { foreignKey: 'user_id', targetKey: 'id' });
+db.Tag.belongsTo(ProductInfo, { foreignKey: 'product_id', targetKey: 'id' });
+db.CommentLike.belongsTo(CommentInfo, { foreignKey: 'comment_id', targetKey: "id" });
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

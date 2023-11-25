@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const {  DataTypes  } = require('sequelize');
 const db = require('../config/database');
 const CommentInfo = require('./commentInfo');
 const UserInfo = require('./userInfo');
@@ -41,6 +41,7 @@ const CommentLike = db.define('comment_like', {
     timestamps: false,
 });
 
-CommentLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
+
+
 
 module.exports = CommentLike;

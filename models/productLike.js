@@ -41,7 +41,7 @@ const ProductLike = db.define('product_like', {
     timestamps: false,
 });
 
-ProductLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
-ProductLike.belongsTo(ProductInfo, { foreignKey: 'product_id' });
+ProductLike.belongsTo(UserInfo, { foreignKey: 'user_id', targetKey: 'id' });
+ProductLike.belongsTo(ProductInfo, { foreignKey: 'product_id', targetKey: 'id' });
 
 module.exports = ProductLike;

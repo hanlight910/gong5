@@ -36,6 +36,6 @@ const Tag = db.define('tag', {
     timestamps: false,
 });
 
-Tag.belongsTo(ProductInfo, { foreignKey: 'product_id' });
+
 
 module.exports = Tag;

@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const {  DataTypes  } = require('sequelize');
 const db = require('../config/database');
 const UserInfo = require('./userInfo');
 
@@ -44,7 +44,6 @@ const Message = db.define('message', {
     timestamps: false,
 });
 
-Message.belongsTo(UserInfo, { foreignKey: 'send_user', as: 'sender' });
-Message.belongsTo(UserInfo, { foreignKey: 'get_user', as: 'receiver' });
+
 
 module.exports = Message;

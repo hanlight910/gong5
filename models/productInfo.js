@@ -2,6 +2,8 @@ const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 const UserInfo = require('./userInfo');
 const CommentInfo = require('./commentInfo');
+const Tag = require('./tag');
+
 
 const ProductInfo = db.define('product_info', {
     id: {
@@ -42,7 +44,7 @@ const ProductInfo = db.define('product_info', {
         type: DataTypes.BOOLEAN,
         allowNull: true,
     },
-    good: {
+    like: {
         type: DataTypes.INTEGER,
         allowNull: true,
     },
@@ -65,7 +67,6 @@ const ProductInfo = db.define('product_info', {
     timestamps: false,
 });
 
-ProductInfo.belongsTo(UserInfo, { foreignKey: 'user_id' });
-ProductInfo.hasMany(CommentInfo, { foreignKey: 'product_id' });
+
 
 module.exports = ProductInfo;
