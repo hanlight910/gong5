@@ -5,12 +5,14 @@ const bodyParser = require('body-parser');
 const db = require('./config/database');
 const userRouter = require('./router/userRouter')
 const productRouter = require('./router/productsRouter');
+const commentRouter = require('./router/comment');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
+app.use('/api', commentRouter);
 app.use('/auth', userRouter);
 app.use('/', productRouter);
 app.listen(port, async () => {
