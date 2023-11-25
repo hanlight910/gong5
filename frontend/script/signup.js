@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     signupButton.addEventListener('click', async function (event) {
         event.preventDefault();
         console.log("hello")
-        const name = document.getElementById('name').value;
+        const name = document.getElementById('inputName').value;
         const email = document.getElementById('inputEmail').value;
         const password = document.getElementById('inputPassword').value;
 
@@ -25,16 +25,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 const result = await response.json();
                 console.log('회원가입 성공:', result.message);
                 alert('회원가입이 성공했습니다.');
-                window.location.href = '로그인 페이지 주소';  // 실제 주소로 변경해야 합니다.
+                location.href = 'login.html' // 실제 주소로 변경해야 합니다.
             } else {
                 const errorData = await response.json();
                 console.error('회원가입 실패:', errorData.error);
-                alert('회원가입에 실패했습니다.');
+                alert(errorData.error);
             }
 
         } catch (error) {
             console.error('예상치 못한 에러:', error);
-            alert('예상치 못한 에러가 발생했습니다.');
+            alert(error);
         }
     });
 });

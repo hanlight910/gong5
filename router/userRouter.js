@@ -11,7 +11,7 @@ const imageUploader = require('../middleware/imageUploader.js');
 const Auth = require('../models/userInfo');
 const { userInfo } = require('os');
 
-router.post('/signup', imageUploader.single('image'), async (req, res) => {
+router.post('/signup', async (req, res) => {
 	try {
 		const { email, password, name } = req.body;
 
@@ -46,7 +46,6 @@ router.post('/signup', imageUploader.single('image'), async (req, res) => {
 			email,
 			password: hashedPassword,
 			name,
-			profileImage: req.file.key,
 		});
 
 		const responseUser = {
