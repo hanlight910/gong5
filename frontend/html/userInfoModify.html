@@ -41,10 +41,10 @@
                 <input type="text" class="form-control" id="addressSearch" name="address" placeholder="주소 검색" readonly>
                 <button type="button" onclick="searchAddress()">주소 검색</button>
             </div>
-            <!-- <div class="form-group">
+            <div class="form-group">
                 <label for="image">프로필 사진 업로드</label>
                 <input type="file" class="form-control-file" id="image" name="image">
-            </div> -->
+            </div>
 
             <button type="submit" class="btn btn-block btn-primary">정보 수정 완료</button>
         </form>
@@ -69,17 +69,6 @@
         integrity="sha256-59/apVFrosMLFX2dHZLGvb3nPpu7e0Yx1rsDr1dTRrk=" crossorigin="anonymous"></script>
     <script src="../script/userInfoModify.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script>
-        function searchAddress() {
-            new daum.Postcode({
-                oncomplete: function (data) {
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-                    // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-                    document.getElementById('addressSearch').value = data.roadAddress;
-                }
-            }).open();
-        }
-    </script>
 </body>
 
 </html>

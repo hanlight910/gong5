@@ -10,41 +10,26 @@ const Tag = require('../models/tag')
 const { Sequelize, Op } = require('sequelize');
 const ProductLike = require('../models/productLike');
 //생성
-router.post('/products', authenticateToken, async (req, res) => {
-	console.log(req.body)
+router.post('/products', authenticateToken, imageUploader.single('image'), async (req, res) => {
 	try {
-		const { title, price, description, tags } = req.body;
-		console.log(title)
+		const { title, price, description } = req.body;
 
-		if (!title) {
+		if (!title || !price || !description) {
 			return res.status(400).json({
 				success: false,
-				message: '제목 입력이 필요합니다.',
+				message: '제목, 가격, 설명은 필수 입력 항목입니다.',
 			});
 		}
-		if (!price) {
-			return res.status(400).json({
-				success: false,
-				message: '가격 입력이 필요합니다.',
-			});
-		}
-
-		if (!description) {
-			return res.status(400).json({
-				success: false,
-				message: '설명 입력이 필요합니다.',
-			});
-		}
-
 
 		const userId = req.locals.user.userId;
-		const image = req.file ? req.file.key : null;	//req.file이 정의되지 않았을 때 해당 속성을 읽으려고 하여 발생하는 오류 해결
-
+		const image = req.file ? req.file.key : null;
+		console.log(req.file)
 		const product = await Product.create({
 			user_id: userId,
 			title,
 			price,
 			content: description,
+			image,
 		});
 
 		res.status(201).json({ product });
@@ -54,21 +39,24 @@ router.post('/products', authenticateToken, async (req, res) => {
 	}
 });
 
+
 //수정
 router.put('/products/:productId', authenticateToken, imageUploader.single('image'), async (req, res) => {
 	try {
-		const { title, content, price, status } = req.body;
+		const { title, price, description } = req.body;
 		const { productId } = req.params;
 		const userId = req.locals.user.userId;
 
 		const existingProduct = await Product.findByPk(productId);
 
+		const image = req.file ? req.file.key : null;
 
 		await existingProduct.update({
+			user_id: userId,
 			title,
-			content,
 			price,
-			status,
+			content: description,
+			image,
 		});
 
 		res.status(201).json({ message: '상품을 수정하는데 성공하였습니다' });

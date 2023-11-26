@@ -110,18 +110,16 @@ router.get('/user', authenticateToken, async (req, res) => {
 });
 
 //수정
-router.put('/user', authenticateToken, async (req, res) => {
-	console.log(req.body)
+router.put('/user', authenticateToken, imageUploader.single('image'), async (req, res) => {
+	console.log("req.body", req.body);
 	try {
-		const { birthday, address, phoneNumber, name } = req.body;
+		const { birthday, address, phoneNumber, name, introduction } = req.body;
 		const userId = req.locals.user.userId;
-
+		console.log("req.file", req.file);
 		const currentUser = await Auth.findByPk(userId);
-
 		if (currentUser) {
-			if (name !== "") {
-				currentUser.name = name;
-			}
+
+			currentUser.name = name == "" ? currentUser.name : name;
 			if (birthday !== "") {
 				currentUser.birthday = birthday;
 			}
@@ -131,11 +129,13 @@ router.put('/user', authenticateToken, async (req, res) => {
 			if (phoneNumber !== "") {
 				currentUser.phoneNumber = phoneNumber;
 			}
-
 			if (req.file) {
 				currentUser.profileImage = req.file.key;
 			}
-
+			if (introduction !== "") {
+				currentUser.introduction = introduction;
+			}
+			console.log(currentUser)
 			await currentUser.save();
 
 			res.json({ message: '유저정보 수정 완료' });

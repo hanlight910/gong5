@@ -12,13 +12,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         const response = await fetch('http://localhost:3010/auth/user', options)
             .then(response => response.json())
             .then(response => {
-                // 각 정보를 받아와서 HTML에 삽입
+
                 document.querySelector('#userName').innerText = response.user.name || '이름이 없습니다.';
                 document.querySelector('#email').innerText = response.user.email;
-
-                // 프로필 이미지 설정
-                const profileImage = user.profileImage || '../image/pngtree-beautiful-profile-line-vector-icon-png-image_1990469.jpg';
-                document.querySelector('.me img').src = profileImage;
+                document.querySelector('#profile_image').src = `https://onelinght.s3.ap-northeast-2.amazonaws.com/${response.user.profileImage}`;
             })
 
     } catch (error) {
