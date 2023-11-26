@@ -35,6 +35,10 @@ const UserInfo = db.define('user_info', {
         type: DataTypes.STRING,
         allowNull: true,
     },
+    introduction: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
 }, {
     tableName: 'user_info',
     timestamps: true,

@@ -11,12 +11,11 @@ const options = {
     }
 };
 
-// API를 호출하고 상품 목록을 가져와서 화면에 표시하는 함수
 async function fetchAndDisplayProducts() {
     if (sessionStorage.getItem("loginId")) {
         headers.innerHTML = `
         <li class="nav-item">
-        <a href="userInfoModify.html" class="btn btn-light">
+        <a href="mypage.html" class="btn btn-light">
             <span>
                 <i class="material-icons">person_add</i>
                 마이페이지

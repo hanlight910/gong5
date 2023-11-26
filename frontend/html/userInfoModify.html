@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css"
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css"
         integrity="sha256-G3IAYJYIQvZgPksNQDbjvxd/Ca1SfCDFwu2s2lt0oGo=" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
@@ -16,39 +17,46 @@
 <body>
     <nav class="navbar nav-global nav-global-sign navbar-expand-sm">
         <div class="container d-flex justify-content-center">
-            <div class="container">           
-                <a class="navbar-brand" href="#">
+            <div class="container">
+                <a class="navbar-brand" href="main.html">
                     <i class="material-icons"><em>lightbulb</i> ONE LIGHT</em>
                 </a>
+            </div>
         </div>
     </nav>
 
     <div class="container container-sm container-sign">
-        <form class="form-sign" method="put" action="/user" enctype="multipart/form-data">
+        <form id="userInfoForm" class="form-sign" method="post" action="/user" enctype="multipart/form-data">
             <h5 class="form-headline">💡 유저 정보 수정 💡</h5>
             <div class="form-group">
-                <input type="text" class="form-control" id="birthday" name="birthday" placeholder="생년월일 입력">
+                <input type="text" class="form-control" id="name" name="name" placeholder="이름 입력">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="address" name="address" placeholder="주소 입력">
+                <input type="text" class="form-control" id="introduction" name="introduction" placeholder="한줄 소개 입력">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="전화번호 입력">
+                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="전화번호 입력">
             </div>
             <div class="form-group">
+                <input type="text" class="form-control" id="addressSearch" name="address" placeholder="주소 검색" readonly>
+                <button type="button" onclick="searchAddress()">주소 검색</button>
+            </div>
+            <!-- <div class="form-group">
                 <label for="image">프로필 사진 업로드</label>
                 <input type="file" class="form-control-file" id="image" name="image">
-            </div>
+            </div> -->
+
             <button type="submit" class="btn btn-block btn-primary">정보 수정 완료</button>
         </form>
     </div>
+
     <footer>
         <div class="container">
             <a href="index.html">ONE LIGHT</a>
             <h6>Copyright © GONG5 Inc. All rights reserved.</h6>
         </div>
     </footer>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -60,6 +68,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.js"
         integrity="sha256-59/apVFrosMLFX2dHZLGvb3nPpu7e0Yx1rsDr1dTRrk=" crossorigin="anonymous"></script>
     <script src="../script/userInfoModify.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function searchAddress() {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                    // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                    document.getElementById('addressSearch').value = data.roadAddress;
+                }
+            }).open();
+        }
+    </script>
 </body>
 
 </html>

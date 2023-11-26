@@ -15,7 +15,6 @@ const ProductLike = require('../models/productLike');
 
 //생성
 router.post('/products', authenticateToken, async (req, res) => {
-	console.log("req.body", req.body)
 	try {
 		const { title, price, description, tags } = req.body;
 
@@ -173,7 +172,6 @@ router.get('/products/:productId', async (req, res) => {
 			return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
 		}
 		await product.increment('watched');
-		console.log(product);
 
 		const productInfo = {
 			id: product.id,

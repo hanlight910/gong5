@@ -16,7 +16,7 @@ async function fetchAndDisplayProducts() {
     })
     const data = await response.json();
     product.innerHTML = `
-    <img src='https://onelinght.s3.ap-northeast-2.amazonaws.com/${data.product.image}' alt="킨더 조이 초콜릿" width="100%">
+    <img src='https://onelinght.s3.ap-northeast-2.amazonaws.com/${data.product.image}' alt="판매물품" width="100%">
     <h3 class="product-title">${data.product.title}</h3>
     <h4 class="product-price" style="font-weight:bold;">
     ${data.product.price}원

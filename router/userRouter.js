@@ -110,25 +110,42 @@ router.get('/user', authenticateToken, async (req, res) => {
 });
 
 //수정
-router.put('/user', authenticateToken, imageUploader.single('image'), async (req, res) => {
+router.put('/user', authenticateToken, async (req, res) => {
+	console.log(req.body)
 	try {
-		const { birthday, address, phoneNumber } = req.body;
+		const { birthday, address, phoneNumber, name } = req.body;
 		const userId = req.locals.user.userId;
 
-		await Auth.update({
-			birthday,
-			address,
-			phoneNumber,
-			profileImage: req.file.key,
-		},
-			{
-				where: { id: userId }
-			})
-		res.json({ message: '유저정보 수정 완료' });
+		const currentUser = await Auth.findByPk(userId);
+
+		if (currentUser) {
+			if (name !== "") {
+				currentUser.name = name;
+			}
+			if (birthday !== "") {
+				currentUser.birthday = birthday;
+			}
+			if (address !== "") {
+				currentUser.address = address;
+			}
+			if (phoneNumber !== "") {
+				currentUser.phoneNumber = phoneNumber;
+			}
+
+			if (req.file) {
+				currentUser.profileImage = req.file.key;
+			}
+
+			await currentUser.save();
+
+			res.json({ message: '유저정보 수정 완료' });
+		} else {
+			res.status(404).json({ error: '유저를 찾을 수 없습니다.' });
+		}
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ err: '서버 에러' });
 	}
-})
+});
 
 module.exports = router;
