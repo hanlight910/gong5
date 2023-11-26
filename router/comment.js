@@ -76,9 +76,6 @@ router.delete('/comment/:commentId', authenticateToken, async (req, res) => {
     await existcomment.destroy();
 
     res.status(201).json({ message: "댓글을 삭제하였습니다." });
-
-    // 새로고침 
-    location.reload();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: '서버 에러' });

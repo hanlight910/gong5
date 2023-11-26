@@ -36,12 +36,38 @@ async function fetchAndDisplayProducts() {
       <div class="card-body">
       <p class="card-text">${e.comment}</p>
       <p class="card-text"><small class="text-muted">${e.updatedAt}</small></p>
+      <button type="submit" class="btn btn-primary"onclick="deleteProduct(event, ${e.id})">삭제</button>
       </div>
       </div>
       `
     })
   } catch (error) {
     console.log(error)
+  }
+}
+window.deleteProduct = async function (event, comment_id) {
+  const confirmDelete = window.confirm('해당 판매게시물을 삭제하시겠습니까?');
+
+  if (confirmDelete) {
+    // Continue with the deletion
+    fetch(`http://localhost:3010/api/comment/${comment_id}`, {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+        "authorization": "Bearer " + sessionStorage.getItem("loginId")
+      },
+    })
+
+      .then(response => {
+        if (response.ok) {
+
+          alert("해당 게시물이 삭제되었습니다.")
+          location.reload()
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 }
 
@@ -92,6 +118,8 @@ function addComment(event) {
     <div class="card-body">
       <p class="card-text">${commentText}</p>
       <p class="card-text"><small class="text-muted">${date}</small></p>
+      <button type="submit" class="btn btn-primary">수정</button>
+      <button type="submit" class="btn btn-primary">삭제</button>
     </div>
   `;
 

@@ -118,8 +118,8 @@ select {
 }
 
 footer {
-  margin-top: 80px;
-  padding: 80px 0;
+  margin: 80px;
+  padding: 80px 180px;
   border-top: 1px solid #E9ECF3;
   background-color: #FBFBFD;
   color: #98A8B9;
