@@ -28,7 +28,7 @@ header {
     font-family: 'Baloo';
     width: 100%;
     height: 60px;
-    background-color: rgba(224, 117, 46, 0.85);
+    background-color: rgba(255, 138, 61, 0.85);
     position: fixed;
     top: 0;
     left: 0;
@@ -137,7 +137,7 @@ h1 a {
 }
 
 .page_wrap .health_wrap {
-    background-color: rgba(108, 60, 244, 0.1);
+    background-color: rgba(255, 138, 61, 0.1);
     width: 480px;
     height: 200px;
 }
@@ -171,7 +171,7 @@ h1 a {
 }
 
 .page_wrap .challenge_wrap {
-    background-color: rgba(108, 60, 244, 0.1);
+    background-color: rgba(255, 138, 61, 0.1);
     width: 480px;
     height: 200px;
 }
@@ -196,37 +196,56 @@ h1 a {
 }
 
 .page_wrap .commu_wrap {
-    background-color: rgba(224, 117, 46, 0.1);
+    background-color: rgba(255, 138, 61, 0.1);
     width: 480px;
     height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    /* 추가: 내부 요소들을 세로로 나열 */
+    align-items: center;
     font-size: 0;
 }
 
 .page_wrap .commu_wrap dl {
-    padding-left: 43px;
-    padding-right: 43px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
     font-size: 15px;
-    margin-top: 30px;
+    margin-top: 10px;
     text-align: center;
     float: left;
-    width: 150px;
-    height: 100px;
+    width: 480px;
+    height: 150px;
     position: relative;
     border-right: 1px dotted #000;
+    box-sizing: border-box;
 }
 
-.page_wrap .commu_wrap dl:last-child {
-    border-right: none;
+.page_wrap .commu_wrap li {
+    display: flex;
+    padding: 5px;
+    width: 450px;
 }
 
-.page_wrap .commu_wrap dd {
-    width: 150px;
-    height: 80%;
-    line-height: 80px;
+.product-name {
+    text-align: left;
+    width: calc(100% - 100px);/
+}
+
+.delete-btn {
+    margin-left: auto;
+}
+
+.update-btn {
+    margin-left: 10px;
+    /* 적절한 여백 설정 */
 }
 
 .page_wrap .market_wrap {
-    background-color: rgba(224, 117, 46, 0.1);
+    background-color: rgba(255, 138, 61, 0.1);
     width: 480px;
     height: 200px;
 }
@@ -270,7 +289,7 @@ h1 a {
     top: 0;
     height: 390%;
     width: 150%;
-    background: rgba(224, 117, 46, 0.85);
+    background: rgba(255, 138, 61, 0.85);
     -webkit-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
     -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);

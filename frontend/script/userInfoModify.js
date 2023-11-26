@@ -3,10 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     userInfoForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-        console.log(userInfoForm)
         // 폼 데이터를 FormData 객체로 가져오기
         const formData = new FormData(userInfoForm);
-        console.log(formData);
 
         // 서버에 PUT 요청 보내기
         try {

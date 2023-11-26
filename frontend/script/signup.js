@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: JSON.stringify({
                     email: email,
                     password: password,
-                    name: name, // 사용자명을 적절한 값으로 변경
+                    name: name,
                 }),
             });
 

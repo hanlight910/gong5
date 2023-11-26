@@ -9,14 +9,12 @@ const CommentLike = require('../models/commentLike')
 const Tag = require('../models/tag')
 const { Sequelize, Op } = require('sequelize');
 const ProductLike = require('../models/productLike');
-
-
-
-
 //생성
 router.post('/products', authenticateToken, async (req, res) => {
+	console.log(req.body)
 	try {
 		const { title, price, description, tags } = req.body;
+		console.log(title)
 
 		if (!title) {
 			return res.status(400).json({
@@ -24,7 +22,6 @@ router.post('/products', authenticateToken, async (req, res) => {
 				message: '제목 입력이 필요합니다.',
 			});
 		}
-
 		if (!price) {
 			return res.status(400).json({
 				success: false,
@@ -47,7 +44,7 @@ router.post('/products', authenticateToken, async (req, res) => {
 			user_id: userId,
 			title,
 			price,
-			constents: description,
+			content: description,
 		});
 
 		res.status(201).json({ product });
@@ -138,6 +135,21 @@ router.get('/products', async (req, res) => {
 		res.status(500).json({ error: '예상치 못한 에러가 발생하였습니다. 관리자에게 문의하세요.' });
 	}
 });
+
+//내가 등록한 상품 조회
+router.get('/products/me', authenticateToken, async function (req, res) {
+	const userId = req.locals.user.userId;
+	try {
+		const product = await Product.findAll({
+			where: { user_id: userId }
+		})
+
+		res.json({ data: product })
+	} catch (err) {
+		res.err(err.message)
+	}
+
+})
 
 //상세 조회
 router.get('/products/:productId', async (req, res) => {

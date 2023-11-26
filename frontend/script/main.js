@@ -7,7 +7,7 @@ const options = {
     method: 'GET',
     headers: {
         accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMzliNjIwOTFmMzY0Y2M4MzczMGExMzU3ZWM1YjE3ZCIsInN1YiI6IjY1MmY3NTcyMzU4ZGE3NWI1ZDAwODcyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.j6JDptMTCwZT8Gkr2PbQ2rWV5r85H1fKNwS4iF1_o3U'
+        "authorization": "Bearer " + sessionStorage.getItem("loginId")
     }
 };
 
@@ -15,21 +15,29 @@ async function fetchAndDisplayProducts() {
     if (sessionStorage.getItem("loginId")) {
         headers.innerHTML = `
         <li class="nav-item">
+        <a href="createProduct.html" class="btn btn-light">
+            <span>
+                <i class="material-icons">add</i>
+                판매하기
+            </span>
+        </a>
+        </li>
+        <li class="nav-item">
         <a href="mypage.html" class="btn btn-light">
             <span>
-                <i class="material-icons">person_add</i>
+                <i class="material-icons">person</i>
                 마이페이지
             </span>
         </a>
-    </li>
-    <li class="nav-item">
-        <a href="login.html" class="btn btn-light" id = "log_out">
-            <span>
-                <i class="material-icons">login</i>
-                로그아웃
-            </span>
-        </a>
-    </li>
+        </li>
+        <li class="nav-item">
+            <a href="login.html" class="btn btn-light" id = "log_out">
+                <span>
+                    <i class="material-icons">logout</i>
+                    로그아웃
+                </span>
+            </a>
+        </li>
         `
         document.querySelector('#log_out').addEventListener('click', function (event) {
             sessionStorage.removeItem('loginId');
