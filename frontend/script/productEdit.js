@@ -1,4 +1,23 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async () => {
+    const id = new URL(document.location.href).searchParams.get('id');
+    const response = await fetch(`http://localhost:3010/products/${id}`, {
+        method: "get",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+
+        // Assuming your HTML has elements with specific IDs
+        document.getElementById('productsTitle').value = data.product.title;
+        // document.getElementById('productsTag').value = null ? data.product.tag : "";
+        document.getElementById('productsPrice').value = data.product.price;
+        document.getElementById('productsDescription').value = data.product.content;
+    } else {
+        console.error('Failed to fetch data');
+    }
     const submitButton = document.querySelector('.btn-submit');
     const fileInput = document.getElementById('ex_filename');
 
@@ -20,8 +39,8 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('image', fileInput.files[0]);  // 이미지 파일 추가
 
         try {
-            const response = await fetch('http://localhost:3010/products', {
-                method: 'POST',
+            const response = await fetch(`http://localhost:3010/products/${id}`, {
+                method: 'put',
                 headers: {
                     'Content-Type': 'application/json',
                     "authorization": "Bearer " + sessionStorage.getItem("loginId")
@@ -38,18 +57,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.ok) {
                 const result = await response.json();
-                console.log('Product created successfully:', result.product);
-                window.location.href = ''; // Replace this with the desired redirect URL
+                alert("판매제품 정보를 수정하였습니다.")
+                window.location.href = 'detail.html?id=' + id; // Replace this with the desired redirect URL
             } else {
                 const errorData = await response.json();
-                console.error('Error creating product:', errorData.message);
+                console.error(errorData.message);
             }
 
         } catch (error) {
-            console.error('Unexpected error:', error);
+            console.error(error);
         }
     });
-
     // 이미지 업로드 시 파일명 표시
     fileInput.addEventListener('change', function () {
         const filename = fileInput.files[0].name;

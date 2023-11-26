@@ -23,17 +23,14 @@ const fileFilter = (req, file, next) => {
     const ext = extArray[extArray.length - 1].toLowerCase();
     const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
 
-    console.log('File extension:', ext);
-    console.log('File MIME type:', file.mimetype);
-
     if (allowedExtensions.includes(`.${ext}`) && allowedMimeTypes.includes(file.mimetype)) {
         next(null, true);
+        console.error('Invalid file:', file.originalname);
     } else {
         console.error('Invalid file:', file.originalname);
         next(new Error('Invalid file type or extension. Only image files are allowed!'), false);
     }
 };
-
 const upload = multer({
     fileFilter: fileFilter,
     storage: multerS3({

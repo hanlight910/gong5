@@ -69,7 +69,6 @@ router.put('/products/:productId', authenticateToken, imageUploader.single('imag
 			content,
 			price,
 			status,
-			image: req.file.key,
 		});
 
 		res.status(201).json({ message: '상품을 수정하는데 성공하였습니다' });

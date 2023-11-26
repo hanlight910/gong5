@@ -21,13 +21,13 @@ select {
 }
 
 .btn-primary {
-  background-color: rgb(255, 138, 61);
+  background-color: #ff8a3d;
   border-color: #ff8a3d;
 }
 
 .btn-primary:hover,
 .btn-primary:active {
-  background-color: rgb(224, 117, 46) !important;
+  background-color: #DF732D !important;
   border-color: #DF732D !important;
 }
 
@@ -105,6 +105,7 @@ select {
 }
 
 .container-sm {
+  padding-top: 120px;
   max-width: 680px;
 }
 

@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         <li>
                         <a href="detail.html?id=${e.id}" class = "product-name" >${e.title} </a>
                         <a class="delete-btn" onclick="deleteProduct(event, ${e.id})" >삭제</a>
-                        <a class="update-btn">수정</a>
+                        <a href="productEdit.html?id=${e.id}" class="update-btn">수정</a>
                         </li>
                         `
                     });
