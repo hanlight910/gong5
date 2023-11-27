@@ -123,8 +123,7 @@ function addComment(event) {
     <div class="card-body">
       <p class="card-text">${commentText}</p>
       <p class="card-text"><small class="text-muted">${date}</small></p>
-      <button type="submit" class="btn btn-primary">수정</button>
-      <button type="submit" class="btn btn-primary">삭제</button>
+      <button type="submit" class="btn btn-primary"onclick="deleteProduct(event, ${e.id})">삭제</button>
     </div>
   `;
 
