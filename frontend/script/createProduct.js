@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('price', price);
         formData.append('description', description);
         formData.append('image', fileInput.files[0]);  // 이미지 파일 추가
-
+        if (!fileInput.files[0]) {
+            alert('이미지 등록은 필수입니다.')
+        }
         try {
             const response = await fetch('http://localhost:3010/products', {
                 method: 'POST',
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.href = 'main.html'; // Replace this with the desired redirect URL
             } else {
                 const errorData = await response.json();
-                console.error('Error creating product:', errorData.message);
+                alert(errorData.message);
             }
 
         } catch (error) {
