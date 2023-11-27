@@ -73,6 +73,7 @@ window.deleteProduct = async function (event, comment_id) {
 
 // 댓글 생성
 async function commentpost(comment) {
+
   const response = await fetch(`http://localhost:3010/api/comment/${id}`, {
     method: "post",
     headers: {
@@ -108,6 +109,10 @@ async function commentdelete(id) {
 
 function addComment(event) {
   event.preventDefault();
+  if (!sessionStorage.getItem("loginId")) {
+    alert("로그인 한 사용자만 작성 가능합니다.")
+    return
+  }
   var commentInput = event.target.querySelector("input");
   var commentText = commentInput.value;
   var date = new Date().toLocaleString();

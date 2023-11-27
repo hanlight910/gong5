@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             var messages = [
                 { text: '안녕하세요!', isUser: false },
-                { text: '안녕하세요! 궁금한 게 있으면 편하게 물어봐 주세요 😊', isUser: true }
+                { text: '판매자 채팅기능은 아직 준비중입니다 조금만 기다려주세요 😊', isUser: true }
             ];
 
             var chatModalBody = document.querySelector('#chatModalBody');
