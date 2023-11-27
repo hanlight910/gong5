@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 location.href = 'main.html'
             } else {
                 console.error('Login failed:', data.error);
+                alert(errorData.error);
             }
         } catch (error) {
             console.error('Error during login:', error.message);
