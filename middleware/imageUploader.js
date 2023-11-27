@@ -6,9 +6,9 @@ const path = require('path');
 dotenv.config();
 
 aws.config.update({
-    region: 'ap-northeast-2',
-    accessKeyId: 'AKIAYGD46I7C25JBECTR',
-    secretAccessKey: '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',
+    region: process.env.REGION,
+    accessKeyId: process.env.ACCESSKEYID,
+    secretAccessKey: process.env.SECRETACCESSKEY,
 });
 
 const s3 = new aws.S3();
@@ -18,7 +18,6 @@ const allowedExtensions = ['.png', '.jpg', '.jpeg', '.gif'];
 const fileFilter = (req, file, next) => {
     console.log('File:', file);
 
-    // 파일 이름에서 확장자 추출
     const extArray = file.originalname.split('.');
     const ext = extArray[extArray.length - 1].toLowerCase();
     const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
