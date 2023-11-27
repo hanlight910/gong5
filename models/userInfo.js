@@ -34,7 +34,7 @@ const UserInfo = db.define('user_info', {
     profileImage: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: '$2b$10$5f3ismId7HJ3eU2IOdtm3OWaKlFK4P.product_image/1701034685528_pngtree-beautiful-profile-line-vector-icon-png-image_1990469-1.jpg'
+        defaultValue: 'product_image/1701034685528_pngtree-beautiful-profile-line-vector-icon-png-image_1990469-1.jpg'
     },
     introduction: {
         type: DataTypes.STRING,

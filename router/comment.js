@@ -17,11 +17,10 @@ router.post('/comment/:product_id', authenticateToken, async (req, res) => {
     const product_id = req.params.product_id;
 
     const userId = req.locals.user.userId;
-
     const addComment = await CommentInfo.create({
       comment,
       product_id: product_id,
-      user_id: userId
+      user_id: userId,
     });
 
     res.status(201).json({ message: '댓글 등록 완료', addComment });
