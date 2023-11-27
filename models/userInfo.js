@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
-const Message = require('./message')
 
 const UserInfo = db.define('user_info', {
     id: {
@@ -37,19 +36,9 @@ const UserInfo = db.define('user_info', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    createdAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
-    updatedAt: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW,
-    },
 }, {
     tableName: 'user_info',
-    timestamps: false,
+    timestamps: true,
 });
 
 

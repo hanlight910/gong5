@@ -42,6 +42,5 @@ const ProductLike = db.define('product_like', {
 });
 
 ProductLike.belongsTo(UserInfo, { foreignKey: 'user_id' });
-ProductLike.belongsTo(ProductInfo, { foreignKey: 'product_id' });
 
 module.exports = ProductLike;
